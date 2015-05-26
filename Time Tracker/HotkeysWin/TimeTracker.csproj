@@ -76,7 +76,15 @@
     <Compile Include="AddNewIssue.Designer.cs">
       <DependentUpon>AddNewIssue.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmChangeHotkey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangeHotkey.Designer.cs">
+      <DependentUpon>frmChangeHotkey.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalData.cs" />
+    <Compile Include="Hotkeys\GlobalHotkeys.cs" />
+    <Compile Include="Hotkeys\HKConstants.cs" />
     <Compile Include="RemoveIssue.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +102,9 @@
     <EmbeddedResource Include="AddNewIssue.resx">
       <DependentUpon>AddNewIssue.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChangeHotkey.resx">
+      <DependentUpon>frmChangeHotkey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemoveIssue.resx">
       <DependentUpon>RemoveIssue.cs</DependentUpon>
@@ -122,12 +133,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hotkeys\Hotkeys.csproj">
-      <Project>{52B60109-9F13-4718-BFB3-CB4F969201A2}</Project>
-      <Name>Hotkeys</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

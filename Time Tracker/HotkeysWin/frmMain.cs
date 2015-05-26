@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using TimeTracker.Hotkeys;
 
 namespace TimeTracker
 {
@@ -22,16 +23,16 @@ namespace TimeTracker
         private List<CheckBox> checkBoxes = new List<CheckBox>();
         private List<Label> timeRoundedList = new List<Label>();
 
-        private Hotkeys.GlobalHotkey ghk;
-
         private int indexOfCurrentlySelected;
 
         public frmMain()
         {
             InitializeComponent();
-            ghk = new Hotkeys.GlobalHotkey(Hotkeys.Constants.CTRL + Hotkeys.Constants.ALT + Hotkeys.Constants.SHIFT, Keys.F10, this);
 
             GlobalData.mainForm = this;
+
+            //default to ctrl + alt + F10
+            GlobalData.HotKey = new GlobalHotkey(true, true, Keys.F10);            
 
             this.Text = "Time Tracker - " + DateTime.Now.ToString("dddd, MMMM dd yyyy");
         }
@@ -44,7 +45,7 @@ namespace TimeTracker
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == Hotkeys.Constants.WM_HOTKEY_MSG_ID)
+            if (m.Msg == HKConstants.WM_HOTKEY_MSG_ID)
                 HandleHotkey();
             base.WndProc(ref m);
         }
@@ -53,7 +54,7 @@ namespace TimeTracker
         {
             notifyIcon1.Icon = this.Icon;
 
-            ghk.Register();
+            GlobalData.HotKey.Register();
 
             System.IO.Directory.CreateDirectory(strDirectory);
             System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
@@ -268,7 +269,7 @@ namespace TimeTracker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!ghk.Unregiser())
+            if (!GlobalData.HotKey.Unregiser())
                 MessageBox.Show("Hotkey failed to unregister!");
 
             notifyIcon1.Visible = false;
@@ -565,6 +566,22 @@ namespace TimeTracker
             {
                 labels[i].Text = TimeSpan.Zero.ToString();
             }
+        }
+
+        private void changeHotkeysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void unhideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GlobalData.changeHotkeyForm == null || GlobalData.changeHotkeyForm.IsDisposed)
+            {
+                GlobalData.changeHotkeyForm = new frmChangeHotkey();
+                GlobalData.changeHotkeyForm.Show();
+            }
+            else GlobalData.changeHotkeyForm.Focus();
+            
         }
     }
 }

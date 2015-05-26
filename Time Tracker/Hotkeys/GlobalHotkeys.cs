@@ -11,7 +11,7 @@ namespace Hotkeys
         private IntPtr hWnd;
         private int id;
 
-        public GlobalHotkey(int modifier, Keys key, Form form)
+        public GlobalHotkey(int modifier, Keys key)
         {
             this.modifier = modifier;
             this.key = (int)key;

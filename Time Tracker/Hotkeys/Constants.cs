@@ -1,6 +1,6 @@
 ﻿namespace Hotkeys
 {
-    public static class Constants
+    public static class HKConstants
     {
         //modifiers
         public const int NOMOD = 0x0000;
