@@ -100,7 +100,7 @@ namespace TimeTracker
             xmlRootNode.AppendChild(xmlIssuesNamesElement);
 
             xmlElementContents = xmlSetting.CreateElement(GlobalData.GetUniqueID());
-            xmlElementContents.InnerText = "Marquis";
+            xmlElementContents.InnerText = "Training";
 
             xmlIssuesNamesElement.AppendChild(xmlElementContents);
 
@@ -221,8 +221,7 @@ namespace TimeTracker
 
             System.Xml.XmlNode xmlRootNode;
 
-            //if the file exists
-            if (System.IO.File.Exists(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType))
+            try
             {
                 //load it
                 xmlTimeLogFile.Load(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType);
@@ -240,6 +239,36 @@ namespace TimeTracker
                     LoadTimeToIssue(xmlNode.Name, TimeSpan.Parse(xmlNode.SelectSingleNode("TimeLoggedToday").InnerText));
                 }
             }
+            catch (System.IO.DirectoryNotFoundException ex)
+            {
+                MessageBox.Show("Could not find today's time log file." + Environment.NewLine + "Directory not found." + Environment.NewLine + "Creating new time log file.");
+                CreateNewTimeLog();
+                LoadTodaysTimeLogFile();
+
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show("Could not find today's time log file." + Environment.NewLine + "Creating new time log file.");
+                CreateNewTimeLog();
+                LoadTodaysTimeLogFile();
+            }
+            catch (Exception ex)
+            {
+                DialogResult result = MessageBox.Show("Could not load today's time log file." + Environment.NewLine
+                    + "Would you like to try again?" + Environment.NewLine
+                    + ex.Message, "Try Again", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes) LoadSettingsFile();
+                else
+                {
+                    result = MessageBox.Show("Would you like to create a new time log file?", "Create New Time Log File", MessageBoxButtons.YesNo);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        CreateNewTimeLog();
+                        LoadTodaysTimeLogFile();
+                    }
+                }
+            }
         }
 
         private void LoadSettingsFile()
@@ -249,16 +278,49 @@ namespace TimeTracker
             System.Xml.XmlNode xmlRootNode;
             System.Xml.XmlNode xmlIssueNamesNode;
 
-            xmlSettingsFile.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
-
-            xmlRootNode = xmlSettingsFile.SelectSingleNode(strSettingsFileName);
-            xmlIssueNamesNode = xmlRootNode.SelectSingleNode("IssueNames");
-
-            for (int i = 0; i < xmlIssueNamesNode.ChildNodes.Count; i++)
+            try
             {
-                System.Xml.XmlNode xmlNode = xmlIssueNamesNode.ChildNodes[i];
+                xmlSettingsFile.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+                
+                xmlRootNode = xmlSettingsFile.SelectSingleNode(strSettingsFileName);
+                xmlIssueNamesNode = xmlRootNode.SelectSingleNode("IssueNames");
 
-                AddNewIssue(xmlNode.Name, xmlNode.InnerText, TimeSpan.Zero);
+                for (int i = 0; i < xmlIssueNamesNode.ChildNodes.Count; i++)
+                {
+                    System.Xml.XmlNode xmlNode = xmlIssueNamesNode.ChildNodes[i];
+
+                    AddNewIssue(xmlNode.Name, xmlNode.InnerText, TimeSpan.Zero);
+                }
+            }
+            catch(System.IO.DirectoryNotFoundException ex)
+            {
+                MessageBox.Show("Could not find settings file." + Environment.NewLine + "Directory not found." + Environment.NewLine + "Creating new settings file.");
+                CreateNewSettingsFile();
+                LoadSettingsFile();
+
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show("Could not find settings file." + Environment.NewLine + "Creating new settings file.");
+                CreateNewSettingsFile();
+                LoadSettingsFile();
+            }
+            catch (Exception ex)
+            {
+                DialogResult result = MessageBox.Show("Could not load settings file." + Environment.NewLine 
+                    + "Would you like to try again?" + Environment.NewLine 
+                    + ex.Message, "Try Again", MessageBoxButtons.YesNo);
+
+                if (result == System.Windows.Forms.DialogResult.Yes) LoadSettingsFile();
+                else
+                {
+                    result = MessageBox.Show("Would you like to create a new settings file?", "Create New Settings File", MessageBoxButtons.YesNo);
+                    if(result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        CreateNewSettingsFile();
+                        LoadSettingsFile();
+                    }
+                }
             }
         }
 
