@@ -42,7 +42,7 @@ namespace TimeTracker
         }
 
         public static frmMain mainForm;
-        public static frmChangeHotkey changeHotkeyForm;
+        public static frmChangeHotkey formChangeHotkey = new frmChangeHotkey();
 
         public static frmAddNewIssue formAddNewIssue = new frmAddNewIssue();
         public static frmRemoveIssue formRemoveIssue = new frmRemoveIssue();

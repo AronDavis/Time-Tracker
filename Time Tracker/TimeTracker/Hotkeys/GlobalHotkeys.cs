@@ -28,7 +28,7 @@ namespace TimeTracker.Hotkeys
             return RegisterHotKey(hWnd, id, modifier, key);
         }
 
-        public bool Unregiser()
+        public bool Unregister()
         {
             return UnregisterHotKey(hWnd, id);
         }

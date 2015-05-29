@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trayUnhide = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.trayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.btnStartStopTimer = new System.Windows.Forms.Button();
             this.pnlDisplayInfo = new System.Windows.Forms.Panel();
@@ -57,12 +61,13 @@
             this.resetSelectedTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetAllTimeTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.txtTotalBreakTime = new System.Windows.Forms.Label();
             this.lblTotalBreakTime = new System.Windows.Forms.Label();
-            this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayIconContextMenu.SuspendLayout();
             this.pnlDisplayInfo.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -74,8 +79,37 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon1.BalloonTipText = "Press Ctrl + Alt + Shift + O to bring up the Time Tracker window.";
             this.notifyIcon1.BalloonTipTitle = "Tip!";
+            this.notifyIcon1.ContextMenuStrip = this.trayIconContextMenu;
             this.notifyIcon1.Text = "Time Tracker";
-            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            // 
+            // trayIconContextMenu
+            // 
+            this.trayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayUnhide,
+            this.toolStripSeparator1,
+            this.trayExit});
+            this.trayIconContextMenu.Name = "trayIconContextMenu";
+            this.trayIconContextMenu.Size = new System.Drawing.Size(113, 54);
+            // 
+            // trayUnhide
+            // 
+            this.trayUnhide.Name = "trayUnhide";
+            this.trayUnhide.Size = new System.Drawing.Size(112, 22);
+            this.trayUnhide.Text = "Unhide";
+            this.trayUnhide.Click += new System.EventHandler(this.trayUnhide_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(109, 6);
+            // 
+            // trayExit
+            // 
+            this.trayExit.Name = "trayExit";
+            this.trayExit.Size = new System.Drawing.Size(112, 22);
+            this.trayExit.Text = "Exit";
+            this.trayExit.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -313,6 +347,13 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
+            // changeHideUnhideHotkeyToolStripMenuItem
+            // 
+            this.changeHideUnhideHotkeyToolStripMenuItem.Name = "changeHideUnhideHotkeyToolStripMenuItem";
+            this.changeHideUnhideHotkeyToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
+            this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.txtTotalTime);
@@ -364,13 +405,6 @@
             this.lblTotalBreakTime.TabIndex = 11;
             this.lblTotalBreakTime.Text = "Total Break Time: ";
             // 
-            // changeHideUnhideHotkeyToolStripMenuItem
-            // 
-            this.changeHideUnhideHotkeyToolStripMenuItem.Name = "changeHideUnhideHotkeyToolStripMenuItem";
-            this.changeHideUnhideHotkeyToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
-            this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,6 +420,7 @@
             this.Text = "Time Tracker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load_1);
+            this.trayIconContextMenu.ResumeLayout(false);
             this.pnlDisplayInfo.ResumeLayout(false);
             this.pnlDisplayInfo.PerformLayout();
             this.pnlTop.ResumeLayout(false);
@@ -434,6 +469,10 @@
         private System.Windows.Forms.Label lblTimeRounded;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeHideUnhideHotkeyToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip trayIconContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem trayUnhide;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem trayExit;
     }
 }
 

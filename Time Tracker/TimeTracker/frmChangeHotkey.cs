@@ -29,9 +29,22 @@ namespace TimeTracker
         private void frmChangeHotkey_Load(object sender, EventArgs e)
         {
             //unregister on load so not to interfere with change
-            GlobalData.HotKey.Unregiser();
+            GlobalData.HotKey.Unregister();
 
             lblHotKey.Text = GlobalData.HotKey.ToString();
+
+            Activated += frmChangeHotkey_Activated;
+            Deactivate += frmChangeHotkey_Deactivated;
+        }
+
+        private void frmChangeHotkey_Activated(object sender, System.EventArgs e)
+        {
+            GlobalData.HotKey.Unregister();   
+        }
+
+        private void frmChangeHotkey_Deactivated(object sender, System.EventArgs e)
+        {
+            GlobalData.HotKey.Register();
         }
 
 
@@ -43,7 +56,7 @@ namespace TimeTracker
             if (hk.Register())
             {
                 //unregister (will be reregistered on close)
-                hk.Unregiser();
+                hk.Unregister();
 
                 //store as the global hot key
                 GlobalData.HotKey = hk;
@@ -170,6 +183,8 @@ namespace TimeTracker
             }
             
             recentKeysDown.Clear();
+
+            if (!ctrlPressed && !altPressed && k == "") return;
 
             //update label
             lblHotKey.Text = (ctrlPressed ? "Ctrl + " : "")

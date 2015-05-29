@@ -37,24 +37,16 @@ namespace TimeTracker
             this.Text = "Time Tracker - " + DateTime.Now.ToString("dddd, MMMM dd yyyy");
         }
 
-        private void HandleHotkey()
+        private void ToggleHidden()
         {
-            if(!Visible)
-            {
-                this.Show();
-                this.Activate();
-            }
-            else
-            {
-                this.Hide();
-            }
-            
+            if(!Visible) Unhide();
+            else HideEverything();            
         }
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == HKConstants.WM_HOTKEY_MSG_ID)
-                HandleHotkey();
+            if (m.Msg == HKConstants.WM_HOTKEY_MSG_ID) ToggleHidden();
+
             base.WndProc(ref m);
         }
 
@@ -430,10 +422,8 @@ namespace TimeTracker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!GlobalData.HotKey.Unregiser())
+            if (!GlobalData.HotKey.Unregister())
                 MessageBox.Show("Hotkey failed to unregister!");
-
-            notifyIcon1.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -677,6 +667,16 @@ namespace TimeTracker
             GlobalData.mainForm.Hide();
             GlobalData.formAddNewIssue.Hide();
             GlobalData.formRemoveIssue.Hide();
+            GlobalData.formChangeHotkey.Hide();
+            notifyIcon1.Visible = true;
+        }
+
+        private void Unhide()
+        {
+            GlobalData.mainForm.Show();
+            GlobalData.mainForm.Activate();
+
+            notifyIcon1.Visible = false;
         }
 
 
@@ -704,7 +704,6 @@ namespace TimeTracker
         {
             SaveSettingsFile();
             SaveTodaysTimeLogFile();
-            notifyIcon1.Visible = false;
             this.Close();
         }
 
@@ -725,13 +724,24 @@ namespace TimeTracker
 
         private void changeHideUnhideHotkeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (GlobalData.changeHotkeyForm == null || GlobalData.changeHotkeyForm.IsDisposed)
+            if (GlobalData.formChangeHotkey.IsDisposed)
             {
-                GlobalData.changeHotkeyForm = new frmChangeHotkey();
-                GlobalData.changeHotkeyForm.Show();
+                GlobalData.formChangeHotkey = new frmChangeHotkey();
             }
-            else GlobalData.changeHotkeyForm.Focus();
             
+            GlobalData.formChangeHotkey.Show();
+            GlobalData.formChangeHotkey.Activate();
+            
+        }
+
+        private void trayUnhide_Click(object sender, EventArgs e)
+        {
+            Unhide();
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            Unhide();
         }
     }
 }
