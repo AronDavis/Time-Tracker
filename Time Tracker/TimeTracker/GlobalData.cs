@@ -47,9 +47,10 @@ namespace TimeTracker
         public static frmAddNewIssue formAddNewIssue = new frmAddNewIssue();
         public static frmRemoveIssue formRemoveIssue = new frmRemoveIssue();
 
+        
         public static String GetUniqueID()
         {
-            return ("ID" + DateTime.Now.ToString("yyyyMMddhhmmssffftt"));
+            return "ID" + (Guid.NewGuid()).ToString().Replace("-","");
         }
     }
 }
