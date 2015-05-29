@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.trayUnhide = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.trayExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnStartStopTimer = new System.Windows.Forms.Button();
             this.pnlDisplayInfo = new System.Windows.Forms.Panel();
             this.lblTimeRounded = new System.Windows.Forms.Label();
@@ -45,7 +44,6 @@
             this.lblTotalTimeWorkedToday = new System.Windows.Forms.Label();
             this.txtTotalTimeWorkedToday = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,14 +72,14 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // notifyIcon1
+            // trayIcon
             // 
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon1.BalloonTipText = "Press Ctrl + Alt + Shift + O to bring up the Time Tracker window.";
-            this.notifyIcon1.BalloonTipTitle = "Tip!";
-            this.notifyIcon1.ContextMenuStrip = this.trayIconContextMenu;
-            this.notifyIcon1.Text = "Time Tracker";
-            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.trayIcon.BalloonTipText = "Press Ctrl + Alt + Shift + O to bring up the Time Tracker window.";
+            this.trayIcon.BalloonTipTitle = "Tip!";
+            this.trayIcon.ContextMenuStrip = this.trayIconContextMenu;
+            this.trayIcon.Text = "Time Tracker";
+            this.trayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
             // 
             // trayIconContextMenu
             // 
@@ -109,19 +107,7 @@
             this.trayExit.Name = "trayExit";
             this.trayExit.Size = new System.Drawing.Size(112, 22);
             this.trayExit.Text = "Exit";
-            this.trayExit.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(489, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 302);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Hide";
-            this.toolTip1.SetToolTip(this.button1, "Press Ctrl + Alt + Shift + F10 to open a hidden Time Tracker window!");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.trayExit.Click += new System.EventHandler(this.trayExit_Click);
             // 
             // btnStartStopTimer
             // 
@@ -143,7 +129,7 @@
             this.pnlDisplayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDisplayInfo.Location = new System.Drawing.Point(0, 24);
             this.pnlDisplayInfo.Name = "pnlDisplayInfo";
-            this.pnlDisplayInfo.Size = new System.Drawing.Size(486, 199);
+            this.pnlDisplayInfo.Size = new System.Drawing.Size(526, 199);
             this.pnlDisplayInfo.TabIndex = 7;
             // 
             // lblTimeRounded
@@ -209,15 +195,6 @@
             this.txtTotalTimeWorkedToday.TabIndex = 10;
             this.txtTotalTimeWorkedToday.Text = "00:00:00";
             // 
-            // splitter1
-            // 
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(486, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 302);
-            this.splitter1.TabIndex = 12;
-            this.splitter1.TabStop = false;
-            // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.pnlDisplayInfo);
@@ -226,7 +203,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(486, 302);
+            this.pnlTop.Size = new System.Drawing.Size(526, 302);
             this.pnlTop.TabIndex = 13;
             // 
             // menuStrip1
@@ -239,7 +216,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(486, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(526, 24);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -366,7 +343,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 223);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(486, 79);
+            this.panel2.Size = new System.Drawing.Size(526, 79);
             this.panel2.TabIndex = 12;
             // 
             // txtTotalTime
@@ -411,10 +388,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(526, 302);
-            this.ControlBox = false;
             this.Controls.Add(this.pnlTop);
-            this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.button1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "Time Tracker";
@@ -435,8 +409,7 @@
 
         #endregion
 
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.Button btnStartStopTimer;
         private System.Windows.Forms.Panel pnlDisplayInfo;
         private System.Windows.Forms.Label lblTimeToday;
@@ -445,7 +418,6 @@
         private System.Windows.Forms.Label lblTotalTimeWorkedToday;
         private System.Windows.Forms.Label txtTotalTimeWorkedToday;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.MenuStrip menuStrip1;

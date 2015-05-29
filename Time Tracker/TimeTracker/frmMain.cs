@@ -8,6 +8,8 @@ namespace TimeTracker
 {
     public partial class frmMain : Form
     {
+        private bool trueExit = false;
+
         private System.Xml.XmlDocument xmlDoc, xmlTodaysLog;
         private String strDirectory = @"C:\Program Files\TimeTracker\";
         private const String strSettingsPath = @"Settings\",
@@ -52,7 +54,7 @@ namespace TimeTracker
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            notifyIcon1.Icon = this.Icon;
+            trayIcon.Icon = this.Icon;
 
             GlobalData.HotKey.Register();
 
@@ -422,8 +424,11 @@ namespace TimeTracker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!GlobalData.HotKey.Unregister())
-                MessageBox.Show("Hotkey failed to unregister!");
+            if (!trueExit)
+            {
+                e.Cancel = true;
+                HideEverything();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -668,7 +673,7 @@ namespace TimeTracker
             GlobalData.formAddNewIssue.Hide();
             GlobalData.formRemoveIssue.Hide();
             GlobalData.formChangeHotkey.Hide();
-            notifyIcon1.Visible = true;
+            trayIcon.Visible = true;
         }
 
         private void Unhide()
@@ -676,7 +681,7 @@ namespace TimeTracker
             GlobalData.mainForm.Show();
             GlobalData.mainForm.Activate();
 
-            notifyIcon1.Visible = false;
+            trayIcon.Visible = false;
         }
 
 
@@ -739,9 +744,22 @@ namespace TimeTracker
             Unhide();
         }
 
-        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Unhide();
+        }
+
+        private void trayExit_Click(object sender, EventArgs e)
+        {
+            Exit();
+        }
+
+        private void Exit()
+        {
+            trueExit = true;
+            if (!GlobalData.HotKey.Unregister())
+                MessageBox.Show("Hotkey failed to unregister!");
+            Close();
         }
     }
 }
