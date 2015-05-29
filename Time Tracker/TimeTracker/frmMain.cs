@@ -84,6 +84,12 @@ namespace TimeTracker
 
         private void CreateNewSettingsFile()
         {
+            GlobalData.Categories.Clear();
+            GlobalData.Issues.Clear();
+
+            GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), "Work"));
+            GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), "Break"));
+
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             System.Xml.XmlElement rootNode;
             System.Xml.XmlElement categoriesNode;
@@ -105,15 +111,15 @@ namespace TimeTracker
 
 
             //Create category
-            System.Xml.XmlElement catNode = doc.CreateElement(GlobalData.GetUniqueID());
-            catNode.InnerText = "Work";
+            System.Xml.XmlElement catNode = doc.CreateElement(GlobalData.Categories[0].ID);
+            catNode.InnerText = GlobalData.Categories[0].DisplayText;
 
             //Add work cat to categories
             categoriesNode.AppendChild(catNode);
 
             //Create category
-            catNode = doc.CreateElement(GlobalData.GetUniqueID());
-            catNode.InnerText = "Break";
+            catNode = doc.CreateElement(GlobalData.Categories[1].ID);
+            catNode.InnerText = GlobalData.Categories[1].DisplayText;
 
             //Add break cat to categories
             categoriesNode.AppendChild(catNode);
@@ -140,10 +146,10 @@ namespace TimeTracker
             //Add name to issue
             iNode.AppendChild(nameNode);
 
-
+            
             //Create category node
             catNode = doc.CreateElement("Category");
-            catNode.InnerText = "Work";
+            catNode.InnerText = GlobalData.Categories[0].ID;
 
             //Add category to issue
             iNode.AppendChild(catNode);
@@ -165,14 +171,14 @@ namespace TimeTracker
 
             xmlTimeLogDoc.AppendChild(xmlRootNode);
 
-            //DateStuff
+            //Date
             xmlRootNode.SetAttribute("Date", DateTime.Now.Month + "/" + DateTime.Now.Day + "/" + DateTime.Now.Year);
-            //
 
-            //for every ID in list
-            for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+            //for every issue in list
+            for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
-                xmlElement = xmlTimeLogDoc.CreateElement(GlobalData.ListIDs[i]); //ID HERE
+                IssueData issue = GlobalData.Issues[i];
+                xmlElement = xmlTimeLogDoc.CreateElement(issue.ID); //ID HERE
 
                 xmlRootNode.AppendChild(xmlElement);
 
@@ -182,7 +188,7 @@ namespace TimeTracker
                 xmlElement.AppendChild(xmlElementContents);
 
                 xmlElementContents = xmlTimeLogDoc.CreateElement("DisplayText");
-                xmlElementContents.InnerText = GlobalData.ListDisplayText[i];
+                xmlElementContents.InnerText = issue.DisplayText;
                 xmlElement.AppendChild(xmlElementContents);
             }
 
@@ -204,19 +210,19 @@ namespace TimeTracker
                 xmlRootNode.SetAttribute("Date", DateTime.Now.Month + "/" + DateTime.Now.Day + "/" + DateTime.Now.Year);
                 ///////////
 
-                for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+                for (int i = 0; i < GlobalData.Issues.Count; i++)
                 {
-                    xmlElement = xmlTimeLogDoc.CreateElement(GlobalData.ListIDs[i]);
+                    xmlElement = xmlTimeLogDoc.CreateElement(GlobalData.Issues[i].ID);
 
                     xmlRootNode.AppendChild(xmlElement);
 
 
                     xmlElementContents = xmlTimeLogDoc.CreateElement("TimeLoggedToday");
-                    xmlElementContents.InnerText = GlobalData.TodaysLoggedTimes[i].ToString();
+                    xmlElementContents.InnerText = GlobalData.Issues[i].TodaysLoggedTime.ToString();
                     xmlElement.AppendChild(xmlElementContents);
 
                     xmlElementContents = xmlTimeLogDoc.CreateElement("DisplayText");
-                    xmlElementContents.InnerText = GlobalData.ListDisplayText[i];
+                    xmlElementContents.InnerText = GlobalData.Issues[i].DisplayText;
                     xmlElement.AppendChild(xmlElementContents);
                 }
                 xmlTimeLogDoc.AppendChild(xmlRootNode);
@@ -247,10 +253,11 @@ namespace TimeTracker
             rootNode.AppendChild(categoriesNode);
 
             //Go through categories
-            for (int i = 0; i < GlobalData.ListCategories.Count; i++)
+            for (int i = 0; i < GlobalData.Categories.Count; i++)
             {
-                catNode = doc.CreateElement(GlobalData.GetUniqueID()); //TODO: replace with actual UID
-                catNode.InnerText = GlobalData.ListCategories[i];
+                Category cat = GlobalData.Categories[i];
+                catNode = doc.CreateElement(cat.ID);
+                catNode.InnerText = cat.DisplayText;
                 
                 //add cat
                 categoriesNode.AppendChild(catNode);
@@ -260,20 +267,21 @@ namespace TimeTracker
             rootNode.AppendChild(issuesNode);
 
             //Go through active items
-            for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+            for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
-                iNode = doc.CreateElement(GlobalData.ListIDs[i]);
+                IssueData issue = GlobalData.Issues[i];
+                iNode = doc.CreateElement(issue.ID);
                 issuesNode.AppendChild(iNode);
 
 
                 //add name
                 xmlElementContents = doc.CreateElement("Name");
-                xmlElementContents.InnerText = GlobalData.ListDisplayText[i];
+                xmlElementContents.InnerText = issue.DisplayText;
                 iNode.AppendChild(xmlElementContents);
 
                 //add category
                 xmlElementContents = doc.CreateElement("Category");
-                xmlElementContents.InnerText = GlobalData.ListCategoryDisplayText[i];
+                xmlElementContents.InnerText = issue.Category.ID;
                 iNode.AppendChild(xmlElementContents);
             }
 
@@ -339,6 +347,9 @@ namespace TimeTracker
 
         private void LoadSettingsFile()
         {
+            GlobalData.Categories.Clear();
+            GlobalData.Issues.Clear();
+
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
 
             System.Xml.XmlNode rootNode;
@@ -351,13 +362,13 @@ namespace TimeTracker
 
                 rootNode = doc.SelectSingleNode(strSettingsFileName);
 
-                GlobalData.ListCategories.Clear();
+                GlobalData.Issues.Clear();
                 categoriesNode = rootNode.SelectSingleNode("Categories");
                 for (int i = 0; i < categoriesNode.ChildNodes.Count; i++)
                 {
                     System.Xml.XmlNode catNode = categoriesNode.ChildNodes[i];
 
-                    GlobalData.ListCategories.Add(catNode.InnerText);
+                    GlobalData.Categories.Add(new Category(catNode.Name, catNode.InnerText));
                 }
 
                 issuesNode = rootNode.SelectSingleNode("Issues");
@@ -464,8 +475,8 @@ namespace TimeTracker
 
         private void AddTheElapsedTime(object sender, EventArgs e)
         {           
-            GlobalData.TodaysLoggedTimes[indexOfCurrentlySelected] += TimeSpan.FromMilliseconds(activeTimer.Interval);
-            labels[indexOfCurrentlySelected].Text = GlobalData.TodaysLoggedTimes[indexOfCurrentlySelected].ToString();
+            GlobalData.Issues[indexOfCurrentlySelected].TodaysLoggedTime += TimeSpan.FromMilliseconds(activeTimer.Interval);
+            labels[indexOfCurrentlySelected].Text = GlobalData.Issues[indexOfCurrentlySelected].TodaysLoggedTime.ToString();
 
             SaveTodaysTimeLogFile();
 
@@ -477,19 +488,19 @@ namespace TimeTracker
             TimeSpan sumOfWorkTime = TimeSpan.Zero;
             TimeSpan sumOfBreakTime = TimeSpan.Zero;
             TimeSpan totalTime = TimeSpan.Zero;
-            for (int i = 0; i < GlobalData.TodaysLoggedTimes.Count; i++)
+            for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
                 if (comboBoxes[i].SelectedItem.ToString() == "Work") //TODO: make this work with categories
                 {
-                    sumOfWorkTime += GlobalData.TodaysLoggedTimes[i];
+                    sumOfWorkTime += GlobalData.Issues[i].TodaysLoggedTime;
                 }
                 else
                 {
-                    sumOfBreakTime += GlobalData.TodaysLoggedTimes[i];
+                    sumOfBreakTime += GlobalData.Issues[i].TodaysLoggedTime;
                 }
 
-                roundTime(i);
-                totalTime += GlobalData.TodaysLoggedTimes[i];
+                UpdateRoundedTimeDisplay(i);
+                totalTime += GlobalData.Issues[i].TodaysLoggedTime;
             }
 
             txtTotalTimeWorkedToday.Text = sumOfWorkTime.ToString();
@@ -501,22 +512,19 @@ namespace TimeTracker
         /// Round up/down and display
         /// </summary>
         /// <param name="index"></param>
-        public void roundTime(int index)
+        public void UpdateRoundedTimeDisplay(int index)
         {
             TimeSpan roundTo = new TimeSpan(0, 15, 0);
 
-            long roundedTicks = (long)Math.Round((double)(GlobalData.TodaysLoggedTimes[index].Ticks) / roundTo.Ticks) * roundTo.Ticks;
+            long roundedTicks = (long)Math.Round((double)(GlobalData.Issues[index].TodaysLoggedTime.Ticks) / roundTo.Ticks) * roundTo.Ticks;
 
             TimeSpan rounded = new TimeSpan(roundedTicks);
             timeRoundedList[index].Text = (rounded.Hours + (rounded.Minutes/60.0)).ToString();
         }
 
-        public void AddNewIssue(String uniqueID, String displayText, String categoryDisplayText, TimeSpan timeLogged)
+        public void AddNewIssue(String uniqueID, String displayText, String categoryID, TimeSpan timeLogged)
         {
-            GlobalData.ListIDs.Add(uniqueID);
-            GlobalData.ListDisplayText.Add(displayText);
-            GlobalData.TodaysLoggedTimes.Add(timeLogged);
-            GlobalData.ListCategoryDisplayText.Add(categoryDisplayText);
+            GlobalData.Issues.Add(new IssueData(uniqueID, displayText, GlobalData.GetCategoryByID(categoryID), timeLogged));
 
             SaveSettingsFile();
 
@@ -525,23 +533,24 @@ namespace TimeTracker
 
         public void LoadTimeToIssue(String uniqueID, TimeSpan timeLogged)
         {
-            int index = GlobalData.ListIDs.IndexOf(uniqueID);
+            int index = GlobalData.GetIssueIndexByID(uniqueID);
             if (index != -1)
             {
-                GlobalData.TodaysLoggedTimes[index] = timeLogged;
+                GlobalData.Issues[index].TodaysLoggedTime = timeLogged;
                 labels[index].Text = timeLogged.ToString();
             }
         }
 
         public void GenerateNewIssueInterface()
         {
-            int i = GlobalData.ListDisplayText.Count - 1;
+            int i = GlobalData.Issues.Count - 1;
+            IssueData issue = GlobalData.Issues[i];
             RadioButton rbTemp = new RadioButton();
-            rbTemp.Name = "rb" + GlobalData.ListIDs[i];
+            rbTemp.Name = "rb" + issue.ID;
             rbTemp.Left = lblCurrentlySelected.Left;
             rbTemp.Top = 25 + (i * (rbTemp.Height + 5));
             rbTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            rbTemp.Text = GlobalData.ListDisplayText[i];
+            rbTemp.Text = issue.DisplayText;
             rbTemp.Click += new EventHandler(HandleNewIssueSelected);
 
 
@@ -549,24 +558,24 @@ namespace TimeTracker
             this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(rbTemp);
 
             Label lblTemp = new Label();
-            lblTemp.Name = "lbl" + GlobalData.ListIDs[i];
+            lblTemp.Name = "lbl" + issue.ID;
             lblTemp.Left = lblTimeToday.Left;
             lblTemp.Top = rbTemp.Top;
             lblTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            lblTemp.Text = GlobalData.TodaysLoggedTimes[i].ToString();
+            lblTemp.Text = issue.TodaysLoggedTime.ToString();
 
             labels.Add(lblTemp);
             this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(lblTemp);
 
 
             ComboBox cbTemp = new ComboBox();
-            cbTemp.Name = "cb" + GlobalData.ListIDs[i];
+            cbTemp.Name = "cb" + issue.ID;
             cbTemp.Left = lblCountTowardsWorkTime.Left;
             cbTemp.Top = rbTemp.Top;
             cbTemp.Width = lblCountTowardsWorkTime.Width;
             //cbTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            cbTemp.Items.AddRange(GlobalData.ListCategories.ToArray());
-            cbTemp.SelectedIndex = GlobalData.ListCategories.IndexOf(GlobalData.ListCategoryDisplayText[i]);
+            cbTemp.Items.AddRange(GlobalData.Categories.ToArray());
+            cbTemp.SelectedIndex = GlobalData.Categories.IndexOf(issue.Category);
             cbTemp.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTemp.SelectedIndexChanged += issueCategory_SelectedIndexChanged; //listen for change
             
@@ -577,7 +586,7 @@ namespace TimeTracker
 
 
             Label timeRoundedTemp = new Label();
-            timeRoundedTemp.Name = "lblTR" + GlobalData.ListIDs[i];
+            timeRoundedTemp.Name = "lblTR" + issue.ID;
             timeRoundedTemp.Left = lblTimeRounded.Left;
             timeRoundedTemp.Top = rbTemp.Top;
             timeRoundedTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -592,8 +601,9 @@ namespace TimeTracker
         private void issueCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-            int i = GlobalData.ListIDs.IndexOf(cb.Name.Remove(0, 2));
-            GlobalData.ListCategoryDisplayText[i] = cb.SelectedItem.ToString();
+
+            int i = GlobalData.GetIssueIndexByID(cb.Name.Remove(0, 2));
+            GlobalData.Issues[i].Category = (Category)cb.SelectedItem;
             SaveSettingsFile();
         }
 
@@ -641,9 +651,7 @@ namespace TimeTracker
             comboBoxes.RemoveAt(index);
             timeRoundedList.RemoveAt(index);
 
-            GlobalData.ListDisplayText.RemoveAt(index);
-            GlobalData.TodaysLoggedTimes.RemoveAt(index);
-            GlobalData.ListIDs.RemoveAt(index);
+            GlobalData.Issues.RemoveAt(index);
 
             SaveSettingsFile();
             SaveTodaysTimeLogFile();

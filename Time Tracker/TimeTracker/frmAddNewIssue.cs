@@ -19,7 +19,7 @@ namespace TimeTracker
 
         private void frmAddNewIssue_Load(object sender, EventArgs e)
         {
-            cbCategory.Items.AddRange(GlobalData.ListCategories.ToArray());
+            cbCategory.Items.AddRange(GlobalData.Categories.ToArray());
             cbCategory.SelectedIndex = 0;
         }
 

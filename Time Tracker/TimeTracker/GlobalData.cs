@@ -10,11 +10,36 @@ namespace TimeTracker
     {
         public static GlobalHotkey HotKey;
 
-        public static List<String> ListIDs = new List<String>();
-        public static List<String> ListDisplayText = new List<String>();
-        public static List<TimeSpan> TodaysLoggedTimes = new List<TimeSpan>();
-        public static List<String> ListCategoryDisplayText = new List<String>();
-        public static List<String> ListCategories= new List<String>();
+        public static List<IssueData> Issues = new List<IssueData>();
+
+        public static int GetIssueIndexByID(String id)
+        {
+            for(int i = 0; i < Issues.Count; i++)
+            {
+                if (Issues[i].ID == id) return i;
+            }
+            return -1;
+        }
+
+        public static List<Category> Categories= new List<Category>();
+
+        public static Category GetCategoryByID(String id)
+        {
+            foreach(Category c in Categories)
+            {
+                if (c.ID == id) return c;
+            }
+            return null;
+        }
+
+        public static int GetCategoryIndexByID(String id)
+        {
+            for (int i = 0; i < Categories.Count; i++)
+            {
+                if (Categories[i].ID == id) return i;
+            }
+            return -1;
+        }
 
         public static frmMain mainForm;
         public static frmChangeHotkey changeHotkeyForm;

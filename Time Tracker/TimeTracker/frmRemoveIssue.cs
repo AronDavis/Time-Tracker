@@ -22,8 +22,7 @@ namespace TimeTracker
 
         public void GenerateIssueInterface()
         {
-
-            for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+            for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
 
                 CheckBox chkTemp = new CheckBox();
@@ -32,8 +31,7 @@ namespace TimeTracker
                 chkTemp.Left = lblIssuesToRemove.Left;
                 chkTemp.Top = 25 + (i * (chkTemp.Height + 5));
                 chkTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                chkTemp.Text = GlobalData.ListDisplayText[i];
-
+                chkTemp.Text = GlobalData.Issues[i].DisplayText;
 
                 checkBoxes.Add(chkTemp);
                 this.Controls.Add(chkTemp);
