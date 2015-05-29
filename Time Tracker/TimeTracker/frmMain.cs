@@ -39,8 +39,16 @@ namespace TimeTracker
 
         private void HandleHotkey()
         {
-            this.Show();
-            this.Activate();
+            if(!Visible)
+            {
+                this.Show();
+                this.Activate();
+            }
+            else
+            {
+                this.Hide();
+            }
+            
         }
 
         protected override void WndProc(ref Message m)
@@ -715,12 +723,7 @@ namespace TimeTracker
             }
         }
 
-        private void changeHotkeysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void unhideToolStripMenuItem_Click(object sender, EventArgs e)
+        private void changeHideUnhideHotkeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (GlobalData.changeHotkeyForm == null || GlobalData.changeHotkeyForm.IsDisposed)
             {

@@ -57,13 +57,12 @@
             this.resetSelectedTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetAllTimeTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.txtTotalBreakTime = new System.Windows.Forms.Label();
             this.lblTotalBreakTime = new System.Windows.Forms.Label();
-            this.unhideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlDisplayInfo.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -228,13 +227,13 @@
             this.startTimerToolStripMenuItem,
             this.stopTimerToolStripMenuItem});
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.timerToolStripMenuItem.Text = "Timer";
             // 
             // startTimerToolStripMenuItem
             // 
             this.startTimerToolStripMenuItem.Name = "startTimerToolStripMenuItem";
-            this.startTimerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startTimerToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.startTimerToolStripMenuItem.Text = "Start Timer";
             this.startTimerToolStripMenuItem.Click += new System.EventHandler(this.btnStartTimer_Click);
             // 
@@ -242,7 +241,7 @@
             // 
             this.stopTimerToolStripMenuItem.Enabled = false;
             this.stopTimerToolStripMenuItem.Name = "stopTimerToolStripMenuItem";
-            this.stopTimerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.stopTimerToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.stopTimerToolStripMenuItem.Text = "Stop Timer";
             this.stopTimerToolStripMenuItem.Click += new System.EventHandler(this.btnStartTimer_Click);
             // 
@@ -252,7 +251,7 @@
             this.addNewIssueToolStripMenuItem2,
             this.removeIssuesToolStripMenuItem1});
             this.addNewIssueToolStripMenuItem1.Name = "addNewIssueToolStripMenuItem1";
-            this.addNewIssueToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addNewIssueToolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
             this.addNewIssueToolStripMenuItem1.Text = "Issues";
             // 
             // addNewIssueToolStripMenuItem2
@@ -272,14 +271,14 @@
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.hideToolStripMenuItem.Text = "Hide";
             this.hideToolStripMenuItem.Click += new System.EventHandler(this.hideToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -295,32 +294,24 @@
             // resetSelectedTimeToolStripMenuItem
             // 
             this.resetSelectedTimeToolStripMenuItem.Name = "resetSelectedTimeToolStripMenuItem";
-            this.resetSelectedTimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetSelectedTimeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.resetSelectedTimeToolStripMenuItem.Text = "Selected Time";
             this.resetSelectedTimeToolStripMenuItem.Click += new System.EventHandler(this.resetSelectedTimeToolStripMenuItem_Click);
             // 
             // resetAllTimeTodayToolStripMenuItem
             // 
             this.resetAllTimeTodayToolStripMenuItem.Name = "resetAllTimeTodayToolStripMenuItem";
-            this.resetAllTimeTodayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetAllTimeTodayToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.resetAllTimeTodayToolStripMenuItem.Text = "All Time";
             this.resetAllTimeTodayToolStripMenuItem.Click += new System.EventHandler(this.resetAllTimeTodayToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeHotkeysToolStripMenuItem});
+            this.changeHideUnhideHotkeyToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // changeHotkeysToolStripMenuItem
-            // 
-            this.changeHotkeysToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unhideToolStripMenuItem});
-            this.changeHotkeysToolStripMenuItem.Name = "changeHotkeysToolStripMenuItem";
-            this.changeHotkeysToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.changeHotkeysToolStripMenuItem.Text = "Change Hotkeys";
             // 
             // panel2
             // 
@@ -373,12 +364,12 @@
             this.lblTotalBreakTime.TabIndex = 11;
             this.lblTotalBreakTime.Text = "Total Break Time: ";
             // 
-            // unhideToolStripMenuItem
+            // changeHideUnhideHotkeyToolStripMenuItem
             // 
-            this.unhideToolStripMenuItem.Name = "unhideToolStripMenuItem";
-            this.unhideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.unhideToolStripMenuItem.Text = "Unhide";
-            this.unhideToolStripMenuItem.Click += new System.EventHandler(this.unhideToolStripMenuItem_Click);
+            this.changeHideUnhideHotkeyToolStripMenuItem.Name = "changeHideUnhideHotkeyToolStripMenuItem";
+            this.changeHideUnhideHotkeyToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
+            this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -442,8 +433,7 @@
         private System.Windows.Forms.Label lblTotalTime;
         private System.Windows.Forms.Label lblTimeRounded;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeHotkeysToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unhideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeHideUnhideHotkeyToolStripMenuItem;
     }
 }
 
