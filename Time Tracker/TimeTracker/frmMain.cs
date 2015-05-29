@@ -20,7 +20,7 @@ namespace TimeTracker
 
         private List<RadioButton> radioButtons = new List<RadioButton>();
         private List<Label> labels = new List<Label>();
-        private List<CheckBox> checkBoxes = new List<CheckBox>();
+        private List<ComboBox> comboBoxes = new List<ComboBox>();
         private List<Label> timeRoundedList = new List<Label>();
 
         private int indexOfCurrentlySelected;
@@ -84,27 +84,72 @@ namespace TimeTracker
 
         private void CreateNewSettingsFile()
         {
-            System.Xml.XmlDocument xmlSetting = new System.Xml.XmlDocument();
-            System.Xml.XmlElement xmlRootNode;
-            System.Xml.XmlElement xmlIssuesNamesElement;
-            System.Xml.XmlElement xmlElementContents;
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            System.Xml.XmlElement rootNode;
+            System.Xml.XmlElement categoriesNode;
+            System.Xml.XmlElement issuesNode;
+            System.Xml.XmlElement iNode;
 
-            //Settings
+            //Settings node
+            rootNode = doc.CreateElement(strSettingsFileName);
 
-            xmlRootNode = xmlSetting.CreateElement(strSettingsFileName);
+            //Add settings node
+            doc.AppendChild(rootNode);
 
-            xmlSetting.AppendChild(xmlRootNode);
 
-            xmlIssuesNamesElement = xmlSetting.CreateElement("IssueNames");
+            //Create categories node
+            categoriesNode = doc.CreateElement("Categories");
 
-            xmlRootNode.AppendChild(xmlIssuesNamesElement);
+            //Add categories to root
+            rootNode.AppendChild(categoriesNode);
 
-            xmlElementContents = xmlSetting.CreateElement(GlobalData.GetUniqueID());
-            xmlElementContents.InnerText = "Training";
 
-            xmlIssuesNamesElement.AppendChild(xmlElementContents);
+            //Create category
+            System.Xml.XmlElement catNode = doc.CreateElement(GlobalData.GetUniqueID());
+            catNode.InnerText = "Work";
 
-            xmlSetting.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+            //Add work cat to categories
+            categoriesNode.AppendChild(catNode);
+
+            //Create category
+            catNode = doc.CreateElement(GlobalData.GetUniqueID());
+            catNode.InnerText = "Break";
+
+            //Add break cat to categories
+            categoriesNode.AppendChild(catNode);
+
+
+            //Create issues node
+            issuesNode = doc.CreateElement("Issues");
+
+            //Add issues node to root
+            rootNode.AppendChild(issuesNode);
+
+
+            //Create new issue with a UID
+            iNode = doc.CreateElement(GlobalData.GetUniqueID());
+
+            //Add issue to issues node
+            issuesNode.AppendChild(iNode);
+
+
+            //Create name node
+            System.Xml.XmlElement nameNode = doc.CreateElement("Name");
+            nameNode.InnerText = "Training";
+            
+            //Add name to issue
+            iNode.AppendChild(nameNode);
+
+
+            //Create category node
+            catNode = doc.CreateElement("Category");
+            catNode.InnerText = "Work";
+
+            //Add category to issue
+            iNode.AppendChild(catNode);
+
+
+            doc.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
         }
 
         private void CreateNewTimeLog()
@@ -157,7 +202,7 @@ namespace TimeTracker
 
                 //DateStuff
                 xmlRootNode.SetAttribute("Date", DateTime.Now.Month + "/" + DateTime.Now.Day + "/" + DateTime.Now.Year);
-                //
+                ///////////
 
                 for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
                 {
@@ -187,31 +232,52 @@ namespace TimeTracker
 
         private void SaveSettingsFile()
         {
-            System.Xml.XmlDocument xmlSetting = new System.Xml.XmlDocument();
-            System.Xml.XmlElement xmlRootNode;
-            System.Xml.XmlElement xmlElement;
-            System.Xml.XmlElement xmlIssueNamesElement;
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            System.Xml.XmlElement rootNode;
+            System.Xml.XmlElement categoriesNode;
+            System.Xml.XmlElement catNode;
+            System.Xml.XmlElement issuesNode;
+            System.Xml.XmlElement iNode;
             System.Xml.XmlElement xmlElementContents;
 
-            xmlRootNode = xmlSetting.CreateElement(strSettingsFileName);
+            rootNode = doc.CreateElement(strSettingsFileName);
+            doc.AppendChild(rootNode);
 
-            xmlIssueNamesElement = xmlSetting.CreateElement("IssueNames");
-            xmlRootNode.AppendChild(xmlIssueNamesElement);
+            categoriesNode = doc.CreateElement("Categories");
+            rootNode.AppendChild(categoriesNode);
 
-            for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+            //Go through categories
+            for (int i = 0; i < GlobalData.ListCategories.Count; i++)
             {
-                xmlElement = xmlSetting.CreateElement(GlobalData.ListIDs[i]);
-                xmlIssueNamesElement.AppendChild(xmlElement);
-
-
-                xmlElementContents = xmlSetting.CreateElement("DisplayText");
-                xmlElementContents.InnerText = GlobalData.ListDisplayText[i];
-                xmlElement.AppendChild(xmlElementContents);
-
+                catNode = doc.CreateElement(GlobalData.GetUniqueID()); //TODO: replace with actual UID
+                catNode.InnerText = GlobalData.ListCategories[i];
+                
+                //add cat
+                categoriesNode.AppendChild(catNode);
             }
 
-            xmlSetting.AppendChild(xmlRootNode);
-            xmlSetting.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+            issuesNode = doc.CreateElement("Issues");
+            rootNode.AppendChild(issuesNode);
+
+            //Go through active items
+            for (int i = 0; i < GlobalData.ListDisplayText.Count; i++)
+            {
+                iNode = doc.CreateElement(GlobalData.ListIDs[i]);
+                issuesNode.AppendChild(iNode);
+
+
+                //add name
+                xmlElementContents = doc.CreateElement("Name");
+                xmlElementContents.InnerText = GlobalData.ListDisplayText[i];
+                iNode.AppendChild(xmlElementContents);
+
+                //add category
+                xmlElementContents = doc.CreateElement("Category");
+                xmlElementContents.InnerText = GlobalData.ListCategoryDisplayText[i];
+                iNode.AppendChild(xmlElementContents);
+            }
+
+            doc.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
 
         }
 
@@ -273,23 +339,38 @@ namespace TimeTracker
 
         private void LoadSettingsFile()
         {
-            System.Xml.XmlDocument xmlSettingsFile = new System.Xml.XmlDocument();
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
 
-            System.Xml.XmlNode xmlRootNode;
-            System.Xml.XmlNode xmlIssueNamesNode;
+            System.Xml.XmlNode rootNode;
+            System.Xml.XmlNode issuesNode;
+            System.Xml.XmlNode categoriesNode;
 
             try
             {
-                xmlSettingsFile.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
-                
-                xmlRootNode = xmlSettingsFile.SelectSingleNode(strSettingsFileName);
-                xmlIssueNamesNode = xmlRootNode.SelectSingleNode("IssueNames");
+                doc.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
 
-                for (int i = 0; i < xmlIssueNamesNode.ChildNodes.Count; i++)
+                rootNode = doc.SelectSingleNode(strSettingsFileName);
+
+                GlobalData.ListCategories.Clear();
+                categoriesNode = rootNode.SelectSingleNode("Categories");
+                for (int i = 0; i < categoriesNode.ChildNodes.Count; i++)
                 {
-                    System.Xml.XmlNode xmlNode = xmlIssueNamesNode.ChildNodes[i];
+                    System.Xml.XmlNode catNode = categoriesNode.ChildNodes[i];
 
-                    AddNewIssue(xmlNode.Name, xmlNode.InnerText, TimeSpan.Zero);
+                    GlobalData.ListCategories.Add(catNode.InnerText);
+                }
+
+                issuesNode = rootNode.SelectSingleNode("Issues");
+
+                for (int i = 0; i < issuesNode.ChildNodes.Count; i++)
+                {
+                    System.Xml.XmlNode xmlNode = issuesNode.ChildNodes[i];
+
+                    System.Xml.XmlNode nameNode = xmlNode.SelectSingleNode("Name");
+
+                    System.Xml.XmlNode catNode = xmlNode.SelectSingleNode("Category");
+
+                    AddNewIssue(xmlNode.Name, nameNode.InnerText, catNode.InnerText, TimeSpan.Zero);
                 }
             }
             catch(System.IO.DirectoryNotFoundException ex)
@@ -308,8 +389,7 @@ namespace TimeTracker
             catch (Exception ex)
             {
                 DialogResult result = MessageBox.Show("Could not load settings file." + Environment.NewLine 
-                    + "Would you like to try again?" + Environment.NewLine 
-                    + ex.Message, "Try Again", MessageBoxButtons.YesNo);
+                    + "Would you like to try again?", "Try Again", MessageBoxButtons.YesNo);
 
                 if (result == System.Windows.Forms.DialogResult.Yes) LoadSettingsFile();
                 else
@@ -383,10 +463,9 @@ namespace TimeTracker
         }
 
         private void AddTheElapsedTime(object sender, EventArgs e)
-        {
-            labels[indexOfCurrentlySelected].Text = (TimeSpan.Parse(labels[indexOfCurrentlySelected].Text) + TimeSpan.FromMilliseconds(activeTimer.Interval)).ToString();
-
-            GlobalData.TodaysLoggedTimes[indexOfCurrentlySelected] = TimeSpan.Parse(labels[indexOfCurrentlySelected].Text) + TimeSpan.FromMilliseconds(activeTimer.Interval);
+        {           
+            GlobalData.TodaysLoggedTimes[indexOfCurrentlySelected] += TimeSpan.FromMilliseconds(activeTimer.Interval);
+            labels[indexOfCurrentlySelected].Text = GlobalData.TodaysLoggedTimes[indexOfCurrentlySelected].ToString();
 
             SaveTodaysTimeLogFile();
 
@@ -400,7 +479,7 @@ namespace TimeTracker
             TimeSpan totalTime = TimeSpan.Zero;
             for (int i = 0; i < GlobalData.TodaysLoggedTimes.Count; i++)
             {
-                if (checkBoxes[i].Checked == true)
+                if (comboBoxes[i].SelectedItem.ToString() == "Work") //TODO: make this work with categories
                 {
                     sumOfWorkTime += GlobalData.TodaysLoggedTimes[i];
                 }
@@ -419,41 +498,25 @@ namespace TimeTracker
         }
 
         /// <summary>
-        /// Round up/down based on specification.
+        /// Round up/down and display
         /// </summary>
         /// <param name="index"></param>
         public void roundTime(int index)
         {
-            float minutesToRoundTo = 15;
+            TimeSpan roundTo = new TimeSpan(0, 15, 0);
 
-            float temp = GlobalData.TodaysLoggedTimes[index].Hours;
+            long roundedTicks = (long)Math.Round((double)(GlobalData.TodaysLoggedTimes[index].Ticks) / roundTo.Ticks) * roundTo.Ticks;
 
-            float m_and_s = (GlobalData.TodaysLoggedTimes[index].Minutes + (GlobalData.TodaysLoggedTimes[index].Seconds / 60f));
-
-            float m_and_s_Mod = m_and_s % minutesToRoundTo;
-
-            float m_and_s_Floor = (float)Math.Floor(m_and_s / minutesToRoundTo);
-            float m_and_s_Ceil = (float)Math.Ceiling(m_and_s / minutesToRoundTo);
-
-            if (m_and_s_Mod >= minutesToRoundTo / 2f)
-            {
-                //round up
-                temp += (m_and_s_Ceil * minutesToRoundTo) / 60f;
-            }
-            else
-            {
-                //round down
-                temp += (m_and_s_Floor * minutesToRoundTo) / 60f;
-            }
-
-            timeRoundedList[index].Text = temp.ToString();
+            TimeSpan rounded = new TimeSpan(roundedTicks);
+            timeRoundedList[index].Text = (rounded.Hours + (rounded.Minutes/60.0)).ToString();
         }
 
-        public void AddNewIssue(String uniqueID, String displayText, TimeSpan timeLogged)
+        public void AddNewIssue(String uniqueID, String displayText, String categoryDisplayText, TimeSpan timeLogged)
         {
             GlobalData.ListIDs.Add(uniqueID);
             GlobalData.ListDisplayText.Add(displayText);
             GlobalData.TodaysLoggedTimes.Add(timeLogged);
+            GlobalData.ListCategoryDisplayText.Add(categoryDisplayText);
 
             SaveSettingsFile();
 
@@ -496,16 +559,21 @@ namespace TimeTracker
             this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(lblTemp);
 
 
-            CheckBox chkTemp = new CheckBox();
-            chkTemp.Name = "chk" + GlobalData.ListIDs[i];
-            chkTemp.Left = lblCountTowardsWorkTime.Left + (int)(lblCountTowardsWorkTime.Width / 2f) - 5;
-            chkTemp.Width = 20;
-            chkTemp.Top = rbTemp.Top;
-            chkTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            chkTemp.Checked = true;
+            ComboBox cbTemp = new ComboBox();
+            cbTemp.Name = "cb" + GlobalData.ListIDs[i];
+            cbTemp.Left = lblCountTowardsWorkTime.Left;
+            cbTemp.Top = rbTemp.Top;
+            cbTemp.Width = lblCountTowardsWorkTime.Width;
+            //cbTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            cbTemp.Items.AddRange(GlobalData.ListCategories.ToArray());
+            cbTemp.SelectedIndex = GlobalData.ListCategories.IndexOf(GlobalData.ListCategoryDisplayText[i]);
+            cbTemp.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTemp.SelectedIndexChanged += issueCategory_SelectedIndexChanged; //listen for change
+            
 
-            checkBoxes.Add(chkTemp);
-            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(chkTemp);
+            comboBoxes.Add(cbTemp);
+            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(cbTemp);
+            cbTemp.BringToFront();
 
 
             Label timeRoundedTemp = new Label();
@@ -517,7 +585,16 @@ namespace TimeTracker
 
             timeRoundedList.Add(timeRoundedTemp);
             this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(timeRoundedTemp);
+
             
+        }
+
+        private void issueCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            int i = GlobalData.ListIDs.IndexOf(cb.Name.Remove(0, 2));
+            GlobalData.ListCategoryDisplayText[i] = cb.SelectedItem.ToString();
+            SaveSettingsFile();
         }
 
         public void FixIssueInterface()
@@ -526,7 +603,7 @@ namespace TimeTracker
             {
                 radioButtons[i].Top = 25 + (i * (radioButtons[i].Height + 5));
                 labels[i].Top = radioButtons[i].Top;
-                checkBoxes[i].Top = radioButtons[i].Top;
+                comboBoxes[i].Top = radioButtons[i].Top;
                 timeRoundedList[i].Top = radioButtons[i].Top;
             }
         }
@@ -556,12 +633,12 @@ namespace TimeTracker
             
             this.pnlDisplayInfo.Controls.RemoveByKey(radioButtons[index].Name);
             this.pnlDisplayInfo.Controls.RemoveByKey(labels[index].Name);
-            this.pnlDisplayInfo.Controls.RemoveByKey(checkBoxes[index].Name);
+            this.pnlDisplayInfo.Controls.RemoveByKey(comboBoxes[index].Name);
             this.pnlDisplayInfo.Controls.RemoveByKey(timeRoundedList[index].Name);
             
             radioButtons.RemoveAt(index);
             labels.RemoveAt(index);
-            checkBoxes.RemoveAt(index);
+            comboBoxes.RemoveAt(index);
             timeRoundedList.RemoveAt(index);
 
             GlobalData.ListDisplayText.RemoveAt(index);
@@ -591,7 +668,7 @@ namespace TimeTracker
         {
             if (GlobalData.formAddNewIssue.IsDisposed)
             {
-                GlobalData.formAddNewIssue = new AddNewIssue();
+                GlobalData.formAddNewIssue = new frmAddNewIssue();
             }
 
             GlobalData.formAddNewIssue.Show();
@@ -602,7 +679,7 @@ namespace TimeTracker
         {
             if (GlobalData.formRemoveIssue.IsDisposed)
             {
-                GlobalData.formRemoveIssue = new RemoveIssue();
+                GlobalData.formRemoveIssue = new frmRemoveIssue();
             }
             GlobalData.formRemoveIssue.ShowThisForm();
         }

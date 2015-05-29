@@ -70,11 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNewIssue.cs">
+    <Compile Include="frmAddNewIssue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddNewIssue.Designer.cs">
-      <DependentUpon>AddNewIssue.cs</DependentUpon>
+    <Compile Include="frmAddNewIssue.Designer.cs">
+      <DependentUpon>frmAddNewIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="frmChangeHotkey.cs">
       <SubType>Form</SubType>
@@ -85,11 +85,11 @@
     <Compile Include="GlobalData.cs" />
     <Compile Include="Hotkeys\GlobalHotkeys.cs" />
     <Compile Include="Hotkeys\HKConstants.cs" />
-    <Compile Include="RemoveIssue.cs">
+    <Compile Include="frmRemoveIssue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RemoveIssue.Designer.cs">
-      <DependentUpon>RemoveIssue.cs</DependentUpon>
+    <Compile Include="frmRemoveIssue.Designer.cs">
+      <DependentUpon>frmRemoveIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -99,15 +99,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddNewIssue.resx">
-      <DependentUpon>AddNewIssue.cs</DependentUpon>
+    <EmbeddedResource Include="frmAddNewIssue.resx">
+      <DependentUpon>frmAddNewIssue.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChangeHotkey.resx">
       <DependentUpon>frmChangeHotkey.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RemoveIssue.resx">
-      <DependentUpon>RemoveIssue.cs</DependentUpon>
+    <EmbeddedResource Include="frmRemoveIssue.resx">
+      <DependentUpon>frmRemoveIssue.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">

@@ -1,6 +1,6 @@
 ﻿namespace TimeTracker
 {
-    partial class RemoveIssue
+    partial class frmRemoveIssue
     {
         /// <summary>
         /// Required designer variable.

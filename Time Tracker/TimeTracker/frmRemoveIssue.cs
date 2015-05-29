@@ -9,11 +9,11 @@ using System.Windows.Forms;
 
 namespace TimeTracker
 {
-    public partial class RemoveIssue : Form
+    public partial class frmRemoveIssue : Form
     {
         private List<CheckBox> checkBoxes = new List<CheckBox>();
 
-        public RemoveIssue()
+        public frmRemoveIssue()
         {
             InitializeComponent();
             GenerateIssueInterface();

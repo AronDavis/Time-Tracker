@@ -9,12 +9,18 @@ using System.Windows.Forms;
 
 namespace TimeTracker
 {
-    public partial class AddNewIssue : Form
+    public partial class frmAddNewIssue : Form
     {
-        public AddNewIssue()
+        public frmAddNewIssue()
         {
             InitializeComponent();
             txtIssueName.Focus();
+        }
+
+        private void frmAddNewIssue_Load(object sender, EventArgs e)
+        {
+            cbCategory.Items.AddRange(GlobalData.ListCategories.ToArray());
+            cbCategory.SelectedIndex = 0;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -37,7 +43,7 @@ namespace TimeTracker
 
         private void AddAndClose()
         {
-            GlobalData.mainForm.AddNewIssue(GlobalData.GetUniqueID(), txtIssueName.Text, TimeSpan.Zero);
+            GlobalData.mainForm.AddNewIssue(GlobalData.GetUniqueID(), txtIssueName.Text, cbCategory.SelectedItem.ToString(), TimeSpan.Zero);
 
             ResetAndHide();
         }

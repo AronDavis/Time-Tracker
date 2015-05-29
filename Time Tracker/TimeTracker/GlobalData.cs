@@ -13,12 +13,14 @@ namespace TimeTracker
         public static List<String> ListIDs = new List<String>();
         public static List<String> ListDisplayText = new List<String>();
         public static List<TimeSpan> TodaysLoggedTimes = new List<TimeSpan>();
+        public static List<String> ListCategoryDisplayText = new List<String>();
+        public static List<String> ListCategories= new List<String>();
 
         public static frmMain mainForm;
         public static frmChangeHotkey changeHotkeyForm;
 
-        public static AddNewIssue formAddNewIssue = new AddNewIssue();
-        public static RemoveIssue formRemoveIssue = new RemoveIssue();
+        public static frmAddNewIssue formAddNewIssue = new frmAddNewIssue();
+        public static frmRemoveIssue formRemoveIssue = new frmRemoveIssue();
 
         public static String GetUniqueID()
         {
