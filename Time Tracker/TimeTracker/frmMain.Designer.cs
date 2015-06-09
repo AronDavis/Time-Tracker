@@ -60,7 +60,7 @@
             this.resetAllTimeTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlBottom = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.txtTotalBreakTime = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@
             this.pnlDisplayInfo.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pnlBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // trayIcon
@@ -199,7 +199,7 @@
             // 
             this.pnlTop.Controls.Add(this.pnlDisplayInfo);
             this.pnlTop.Controls.Add(this.menuStrip1);
-            this.pnlTop.Controls.Add(this.panel2);
+            this.pnlTop.Controls.Add(this.pnlBottom);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
@@ -331,20 +331,20 @@
             this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
             this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
             // 
-            // panel2
+            // pnlBottom
             // 
-            this.panel2.Controls.Add(this.txtTotalTime);
-            this.panel2.Controls.Add(this.lblTotalTime);
-            this.panel2.Controls.Add(this.txtTotalBreakTime);
-            this.panel2.Controls.Add(this.lblTotalBreakTime);
-            this.panel2.Controls.Add(this.btnStartStopTimer);
-            this.panel2.Controls.Add(this.txtTotalTimeWorkedToday);
-            this.panel2.Controls.Add(this.lblTotalTimeWorkedToday);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 223);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(526, 79);
-            this.panel2.TabIndex = 12;
+            this.pnlBottom.Controls.Add(this.txtTotalTime);
+            this.pnlBottom.Controls.Add(this.lblTotalTime);
+            this.pnlBottom.Controls.Add(this.txtTotalBreakTime);
+            this.pnlBottom.Controls.Add(this.lblTotalBreakTime);
+            this.pnlBottom.Controls.Add(this.btnStartStopTimer);
+            this.pnlBottom.Controls.Add(this.txtTotalTimeWorkedToday);
+            this.pnlBottom.Controls.Add(this.lblTotalTimeWorkedToday);
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBottom.Location = new System.Drawing.Point(0, 223);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(526, 79);
+            this.pnlBottom.TabIndex = 12;
             // 
             // txtTotalTime
             // 
@@ -401,8 +401,8 @@
             this.pnlTop.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnlBottom.ResumeLayout(false);
+            this.pnlBottom.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -419,7 +419,7 @@
         private System.Windows.Forms.Label txtTotalTimeWorkedToday;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlBottom;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
