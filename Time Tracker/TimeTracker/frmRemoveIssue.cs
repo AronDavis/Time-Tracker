@@ -28,13 +28,13 @@ namespace TimeTracker
                 CheckBox chkTemp = new CheckBox();
                 string ID = DateTime.Now.ToString("yyyyMMddhhmmssffftt");
                 chkTemp.Name = "chk" + ID;
-                chkTemp.Left = lblIssuesToRemove.Left;
-                chkTemp.Top = 25 + (i * (chkTemp.Height + 5));
+                chkTemp.Left = lblIssuesToRemove.Left + 5;
+                chkTemp.Top = i * (chkTemp.Height + 5);
                 chkTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                 chkTemp.Text = GlobalData.Issues[i].DisplayText;
 
                 checkBoxes.Add(chkTemp);
-                this.Controls.Add(chkTemp);
+                pnlMiddle.Controls.Add(chkTemp);
             }
         }
 
@@ -63,14 +63,14 @@ namespace TimeTracker
         {
             for (int i = checkBoxes.Count - 1; i >= 0; i--)
             {
-                this.Controls.RemoveByKey(checkBoxes[i].Name);
+                pnlMiddle.Controls.RemoveByKey(checkBoxes[i].Name);
                 checkBoxes.RemoveAt(i);
             }
         }
 
         private void RemoveThisIssue(int index)
         {
-            this.Controls.RemoveByKey(checkBoxes[index].Name);
+            pnlMiddle.Controls.RemoveByKey(checkBoxes[index].Name);
             GlobalData.mainForm.RemoveIssueFromInterface(index);
             checkBoxes.RemoveAt(index);
         }
