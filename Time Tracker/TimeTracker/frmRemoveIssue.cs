@@ -38,14 +38,6 @@ namespace TimeTracker
             }
         }
 
-        public void FixIssueInterface()
-        {
-            for (int i = 0; i < checkBoxes.Count; i++)
-            {
-                checkBoxes[i].Top = 25 + (i * (checkBoxes[i].Height + 5));
-            }
-        }
-
         private void btnRemoveIssues_Click(object sender, EventArgs e)
         {
             for (int i = checkBoxes.Count - 1; i >= 0; i--)
