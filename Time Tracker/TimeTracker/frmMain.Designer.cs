@@ -124,7 +124,7 @@
             this.pnlDisplayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDisplayInfo.Location = new System.Drawing.Point(0, 59);
             this.pnlDisplayInfo.Name = "pnlDisplayInfo";
-            this.pnlDisplayInfo.Size = new System.Drawing.Size(526, 164);
+            this.pnlDisplayInfo.Size = new System.Drawing.Size(526, 273);
             this.pnlDisplayInfo.TabIndex = 7;
             // 
             // lblTimeRounded
@@ -338,9 +338,9 @@
             this.pnlBottom.Controls.Add(this.txtTotalTimeWorkedToday);
             this.pnlBottom.Controls.Add(this.lblTotalTimeWorkedToday);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 223);
+            this.pnlBottom.Location = new System.Drawing.Point(0, 332);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(526, 79);
+            this.pnlBottom.Size = new System.Drawing.Size(526, 80);
             this.pnlBottom.TabIndex = 12;
             // 
             // txtTotalTime
@@ -384,7 +384,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(526, 302);
+            this.ClientSize = new System.Drawing.Size(526, 412);
             this.Controls.Add(this.pnlDisplayInfo);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlBottom);

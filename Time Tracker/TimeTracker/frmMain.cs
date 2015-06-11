@@ -491,8 +491,16 @@ namespace TimeTracker
             TimeSpan sumOfWorkTime = TimeSpan.Zero;
             TimeSpan sumOfBreakTime = TimeSpan.Zero;
             TimeSpan totalTime = TimeSpan.Zero;
+
+            TimeSpan[] categoryTimeSums = new TimeSpan[GlobalData.Categories.Count];
+
             for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
+                Category cat = (Category)comboBoxes[i].SelectedItem;
+
+                int catIndex = GlobalData.Categories.IndexOf(cat);
+                categoryTimeSums[catIndex] += GlobalData.Issues[i].TodaysLoggedTime;
+
                 if (comboBoxes[i].SelectedItem.ToString() == "Work") //TODO: make this work with categories
                 {
                     sumOfWorkTime += GlobalData.Issues[i].TodaysLoggedTime;
@@ -517,11 +525,7 @@ namespace TimeTracker
         /// <param name="index"></param>
         public void UpdateRoundedTimeDisplay(int index)
         {
-            TimeSpan roundTo = new TimeSpan(0, 15, 0);
-
-            long roundedTicks = (long)Math.Round((double)(GlobalData.Issues[index].TodaysLoggedTime.Ticks) / roundTo.Ticks) * roundTo.Ticks;
-
-            TimeSpan rounded = new TimeSpan(roundedTicks);
+            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, 15, TimeUtility.RoundIncrementMode.Minutes);
             timeRoundedList[index].Text = (rounded.Hours + (rounded.Minutes/60.0)).ToString();
         }
 

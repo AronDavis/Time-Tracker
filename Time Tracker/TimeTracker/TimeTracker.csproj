@@ -101,6 +101,7 @@
     <Compile Include="IssueData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeUtility.cs" />
     <EmbeddedResource Include="frmAddNewIssue.resx">
       <DependentUpon>frmAddNewIssue.cs</DependentUpon>
       <SubType>Designer</SubType>
