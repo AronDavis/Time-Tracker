@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using TimeTracker.Hotkeys;
+using System.Linq;
 
 namespace TimeTracker
 {
@@ -54,13 +55,21 @@ namespace TimeTracker
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            trayIcon.Icon = this.Icon;
+            trayIcon.Icon = this.Icon;         
 
             GlobalData.HotKey.Register();
+
 
             System.IO.Directory.CreateDirectory(strDirectory);
             System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
             System.IO.Directory.CreateDirectory(strDirectory + strTimeLogsPath);
+
+            foreach (TimeUtility.RoundDirection dir in Enum.GetValues(typeof(TimeUtility.RoundDirection)))
+            {
+                cbRoundDirections.Items.Add(dir);
+            }
+
+            cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
 
             if (!System.IO.File.Exists(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType))
             {
@@ -525,7 +534,7 @@ namespace TimeTracker
         /// <param name="index"></param>
         public void UpdateRoundedTimeDisplay(int index)
         {
-            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, new TimeSpan(0, 15, 0));
+            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, new TimeSpan(0,15,0), GlobalData.RoundDirection);
             timeRoundedList[index].Text = TimeUtility.FormatRoundedTime(rounded, TimeUtility.RoundIncrementMode.Hours);
         }
 
@@ -767,6 +776,12 @@ namespace TimeTracker
         private void downToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbRoundDirections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GlobalData.RoundDirection = (TimeUtility.RoundDirection)cbRoundDirections.SelectedItem;
+            SumTime();
         }
     }
 }

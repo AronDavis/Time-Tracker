@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TimeTracker
 {
-    class TimeUtility
+    public class TimeUtility
     {
         public enum RoundIncrementMode
         {
