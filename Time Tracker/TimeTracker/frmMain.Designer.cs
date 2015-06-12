@@ -60,6 +60,12 @@
             this.resetAllTimeTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.roundingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.middleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.downToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
@@ -319,7 +325,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeHideUnhideHotkeyToolStripMenuItem});
+            this.changeHideUnhideHotkeyToolStripMenuItem,
+            this.roundingToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -330,6 +337,50 @@
             this.changeHideUnhideHotkeyToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
             this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
+            // 
+            // roundingToolStripMenuItem
+            // 
+            this.roundingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.upToolStripMenuItem,
+            this.downToolStripMenuItem});
+            this.roundingToolStripMenuItem.Name = "roundingToolStripMenuItem";
+            this.roundingToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.roundingToolStripMenuItem.Text = "Rounding";
+            // 
+            // upToolStripMenuItem
+            // 
+            this.upToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.upToolStripMenuItem1,
+            this.middleToolStripMenuItem1,
+            this.downToolStripMenuItem1});
+            this.upToolStripMenuItem.Name = "upToolStripMenuItem";
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem.Text = "Direction";
+            // 
+            // upToolStripMenuItem1
+            // 
+            this.upToolStripMenuItem1.Name = "upToolStripMenuItem1";
+            this.upToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem1.Text = "Up";
+            // 
+            // middleToolStripMenuItem1
+            // 
+            this.middleToolStripMenuItem1.Name = "middleToolStripMenuItem1";
+            this.middleToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.middleToolStripMenuItem1.Text = "Middle";
+            // 
+            // downToolStripMenuItem1
+            // 
+            this.downToolStripMenuItem1.Name = "downToolStripMenuItem1";
+            this.downToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem1.Text = "Down";
+            // 
+            // downToolStripMenuItem
+            // 
+            this.downToolStripMenuItem.Name = "downToolStripMenuItem";
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem.Text = "Interval";
+            this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
             // 
             // pnlBottom
             // 
@@ -445,6 +496,12 @@
         private System.Windows.Forms.ToolStripMenuItem trayUnhide;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem trayExit;
+        private System.Windows.Forms.ToolStripMenuItem roundingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem upToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem upToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem middleToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem;
     }
 }
 

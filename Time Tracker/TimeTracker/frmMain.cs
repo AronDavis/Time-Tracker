@@ -761,5 +761,10 @@ namespace TimeTracker
                 MessageBox.Show("Hotkey failed to unregister!");
             Close();
         }
+
+        private void downToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
