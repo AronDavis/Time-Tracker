@@ -376,7 +376,7 @@
             // 
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
             this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.downToolStripMenuItem.Text = "Interval";
+            this.downToolStripMenuItem.Text = "Round To...";
             this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
             // 
             // pnlBottom
