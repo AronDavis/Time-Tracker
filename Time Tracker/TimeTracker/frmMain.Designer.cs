@@ -60,10 +60,11 @@
             this.resetAllTimeTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeHideUnhideHotkeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.roundingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miRounding = new System.Windows.Forms.ToolStripMenuItem();
             this.upToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbRoundDirections = new System.Windows.Forms.ToolStripComboBox();
             this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtRoundTo = new System.Windows.Forms.ToolStripTextBox();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
@@ -321,7 +322,7 @@
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeHideUnhideHotkeyToolStripMenuItem,
-            this.roundingToolStripMenuItem});
+            this.miRounding});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -333,14 +334,15 @@
             this.changeHideUnhideHotkeyToolStripMenuItem.Text = "Change Hide/Unhide Hotkey";
             this.changeHideUnhideHotkeyToolStripMenuItem.Click += new System.EventHandler(this.changeHideUnhideHotkeyToolStripMenuItem_Click);
             // 
-            // roundingToolStripMenuItem
+            // miRounding
             // 
-            this.roundingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miRounding.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.upToolStripMenuItem,
             this.downToolStripMenuItem});
-            this.roundingToolStripMenuItem.Name = "roundingToolStripMenuItem";
-            this.roundingToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.roundingToolStripMenuItem.Text = "Rounding";
+            this.miRounding.Name = "miRounding";
+            this.miRounding.Size = new System.Drawing.Size(227, 22);
+            this.miRounding.Text = "Rounding";
+            this.miRounding.Click += new System.EventHandler(this.miRounding_Click);
             // 
             // upToolStripMenuItem
             // 
@@ -359,10 +361,17 @@
             // 
             // downToolStripMenuItem
             // 
+            this.downToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtRoundTo});
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
             this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.downToolStripMenuItem.Text = "Round To...";
-            this.downToolStripMenuItem.Click += new System.EventHandler(this.downToolStripMenuItem_Click);
+            // 
+            // txtRoundTo
+            // 
+            this.txtRoundTo.Name = "txtRoundTo";
+            this.txtRoundTo.Size = new System.Drawing.Size(100, 23);
+            this.txtRoundTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRoundTo_KeyDown);
             // 
             // pnlBottom
             // 
@@ -478,10 +487,11 @@
         private System.Windows.Forms.ToolStripMenuItem trayUnhide;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem trayExit;
-        private System.Windows.Forms.ToolStripMenuItem roundingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem miRounding;
         private System.Windows.Forms.ToolStripMenuItem upToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox cbRoundDirections;
+        private System.Windows.Forms.ToolStripTextBox txtRoundTo;
     }
 }
 
