@@ -34,7 +34,6 @@ namespace TimeTracker
                     break;
                 case RoundDirection.Down:
                     roundedTicks = (long)Math.Floor((double)(time.Ticks) / roundTo.Ticks) * roundTo.Ticks;
-                    roundedTime = new TimeSpan(roundedTicks);
                     break;
                 case RoundDirection.Average:
                 default:

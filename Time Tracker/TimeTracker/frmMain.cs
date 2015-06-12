@@ -70,6 +70,7 @@ namespace TimeTracker
             }
 
             cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
+            txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
 
             if (!System.IO.File.Exists(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType))
             {
@@ -534,7 +535,7 @@ namespace TimeTracker
         /// <param name="index"></param>
         public void UpdateRoundedTimeDisplay(int index)
         {
-            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, new TimeSpan(0,15,0), GlobalData.RoundDirection);
+            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, GlobalData.RoundTo, GlobalData.RoundDirection);
             timeRoundedList[index].Text = TimeUtility.FormatRoundedTime(rounded, TimeUtility.RoundIncrementMode.Hours);
         }
 
@@ -773,15 +774,30 @@ namespace TimeTracker
             Close();
         }
 
-        private void downToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cbRoundDirections_SelectedIndexChanged(object sender, EventArgs e)
         {
             GlobalData.RoundDirection = (TimeUtility.RoundDirection)cbRoundDirections.SelectedItem;
             SumTime();
+        }
+
+        private void txtRoundTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                int minutes;
+
+                if(int.TryParse(txtRoundTo.Text, out minutes))
+                {
+                    GlobalData.RoundTo = new TimeSpan(0, minutes, 0);
+                    SumTime();
+                }
+                else MessageBox.Show("Please enter a whole number.");
+            }
+        }
+
+        private void miRounding_Click(object sender, EventArgs e)
+        {
+            txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
         }
     }
 }
