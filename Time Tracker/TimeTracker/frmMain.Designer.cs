@@ -72,7 +72,6 @@
             this.txtTotalBreakTime = new System.Windows.Forms.Label();
             this.lblTotalBreakTime = new System.Windows.Forms.Label();
             this.trayIconContextMenu.SuspendLayout();
-            this.pnlDisplayInfo.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnlBottom.SuspendLayout();
@@ -128,21 +127,17 @@
             // pnlDisplayInfo
             // 
             this.pnlDisplayInfo.AutoScroll = true;
-            this.pnlDisplayInfo.Controls.Add(this.lblTimeRounded);
-            this.pnlDisplayInfo.Controls.Add(this.lblCountTowardsWorkTime);
-            this.pnlDisplayInfo.Controls.Add(this.lblTimeToday);
-            this.pnlDisplayInfo.Controls.Add(this.lblCurrentlySelected);
             this.pnlDisplayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDisplayInfo.Location = new System.Drawing.Point(0, 24);
+            this.pnlDisplayInfo.Location = new System.Drawing.Point(0, 59);
             this.pnlDisplayInfo.Name = "pnlDisplayInfo";
-            this.pnlDisplayInfo.Size = new System.Drawing.Size(526, 199);
+            this.pnlDisplayInfo.Size = new System.Drawing.Size(526, 273);
             this.pnlDisplayInfo.TabIndex = 7;
             // 
             // lblTimeRounded
             // 
             this.lblTimeRounded.AutoSize = true;
             this.lblTimeRounded.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeRounded.Location = new System.Drawing.Point(378, 9);
+            this.lblTimeRounded.Location = new System.Drawing.Point(378, 38);
             this.lblTimeRounded.Name = "lblTimeRounded";
             this.lblTimeRounded.Size = new System.Drawing.Size(89, 13);
             this.lblTimeRounded.TabIndex = 8;
@@ -152,7 +147,7 @@
             // 
             this.lblCountTowardsWorkTime.AutoSize = true;
             this.lblCountTowardsWorkTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountTowardsWorkTime.Location = new System.Drawing.Point(285, 9);
+            this.lblCountTowardsWorkTime.Location = new System.Drawing.Point(285, 38);
             this.lblCountTowardsWorkTime.Name = "lblCountTowardsWorkTime";
             this.lblCountTowardsWorkTime.Size = new System.Drawing.Size(68, 13);
             this.lblCountTowardsWorkTime.TabIndex = 7;
@@ -162,7 +157,7 @@
             // 
             this.lblTimeToday.AutoSize = true;
             this.lblTimeToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeToday.Location = new System.Drawing.Point(194, 9);
+            this.lblTimeToday.Location = new System.Drawing.Point(194, 38);
             this.lblTimeToday.Name = "lblTimeToday";
             this.lblTimeToday.Size = new System.Drawing.Size(73, 13);
             this.lblTimeToday.TabIndex = 6;
@@ -172,7 +167,7 @@
             // 
             this.lblCurrentlySelected.AutoSize = true;
             this.lblCurrentlySelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentlySelected.Location = new System.Drawing.Point(12, 9);
+            this.lblCurrentlySelected.Location = new System.Drawing.Point(12, 38);
             this.lblCurrentlySelected.Name = "lblCurrentlySelected";
             this.lblCurrentlySelected.Size = new System.Drawing.Size(111, 13);
             this.lblCurrentlySelected.TabIndex = 5;
@@ -203,13 +198,15 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.Controls.Add(this.pnlDisplayInfo);
+            this.pnlTop.Controls.Add(this.lblTimeRounded);
+            this.pnlTop.Controls.Add(this.lblCountTowardsWorkTime);
             this.pnlTop.Controls.Add(this.menuStrip1);
-            this.pnlTop.Controls.Add(this.pnlBottom);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTop.Controls.Add(this.lblTimeToday);
+            this.pnlTop.Controls.Add(this.lblCurrentlySelected);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(526, 302);
+            this.pnlTop.Size = new System.Drawing.Size(526, 59);
             this.pnlTop.TabIndex = 13;
             // 
             // menuStrip1
@@ -392,9 +389,9 @@
             this.pnlBottom.Controls.Add(this.txtTotalTimeWorkedToday);
             this.pnlBottom.Controls.Add(this.lblTotalTimeWorkedToday);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 223);
+            this.pnlBottom.Location = new System.Drawing.Point(0, 332);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(526, 79);
+            this.pnlBottom.Size = new System.Drawing.Size(526, 80);
             this.pnlBottom.TabIndex = 12;
             // 
             // txtTotalTime
@@ -438,16 +435,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(526, 302);
+            this.ClientSize = new System.Drawing.Size(526, 412);
+            this.Controls.Add(this.pnlDisplayInfo);
             this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.pnlBottom);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "Time Tracker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load_1);
             this.trayIconContextMenu.ResumeLayout(false);
-            this.pnlDisplayInfo.ResumeLayout(false);
-            this.pnlDisplayInfo.PerformLayout();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

@@ -491,8 +491,16 @@ namespace TimeTracker
             TimeSpan sumOfWorkTime = TimeSpan.Zero;
             TimeSpan sumOfBreakTime = TimeSpan.Zero;
             TimeSpan totalTime = TimeSpan.Zero;
+
+            TimeSpan[] categoryTimeSums = new TimeSpan[GlobalData.Categories.Count];
+
             for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
+                Category cat = (Category)comboBoxes[i].SelectedItem;
+
+                int catIndex = GlobalData.Categories.IndexOf(cat);
+                categoryTimeSums[catIndex] += GlobalData.Issues[i].TodaysLoggedTime;
+
                 if (comboBoxes[i].SelectedItem.ToString() == "Work") //TODO: make this work with categories
                 {
                     sumOfWorkTime += GlobalData.Issues[i].TodaysLoggedTime;
@@ -517,12 +525,8 @@ namespace TimeTracker
         /// <param name="index"></param>
         public void UpdateRoundedTimeDisplay(int index)
         {
-            TimeSpan roundTo = new TimeSpan(0, 15, 0);
-
-            long roundedTicks = (long)Math.Round((double)(GlobalData.Issues[index].TodaysLoggedTime.Ticks) / roundTo.Ticks) * roundTo.Ticks;
-
-            TimeSpan rounded = new TimeSpan(roundedTicks);
-            timeRoundedList[index].Text = (rounded.Hours + (rounded.Minutes/60.0)).ToString();
+            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, 15, TimeUtility.RoundIncrementMode.Minutes);
+            timeRoundedList[index].Text = TimeUtility.FormatRoundedTime(rounded, TimeUtility.RoundIncrementMode.Hours);
         }
 
         public void AddNewIssue(String uniqueID, String displayText, String categoryID, TimeSpan timeLogged)
@@ -550,15 +554,15 @@ namespace TimeTracker
             IssueData issue = GlobalData.Issues[i];
             RadioButton rbTemp = new RadioButton();
             rbTemp.Name = "rb" + issue.ID;
-            rbTemp.Left = lblCurrentlySelected.Left;
-            rbTemp.Top = 25 + (i * (rbTemp.Height + 5));
+            rbTemp.Left = lblCurrentlySelected.Left + 5;
+            rbTemp.Top = i * (rbTemp.Height + 5);
             rbTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             rbTemp.Text = issue.DisplayText;
             rbTemp.Click += new EventHandler(HandleNewIssueSelected);
 
 
             radioButtons.Add(rbTemp);
-            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(rbTemp);
+            pnlDisplayInfo.Controls.Add(rbTemp);
 
             Label lblTemp = new Label();
             lblTemp.Name = "lbl" + issue.ID;
@@ -568,7 +572,7 @@ namespace TimeTracker
             lblTemp.Text = issue.TodaysLoggedTime.ToString();
 
             labels.Add(lblTemp);
-            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(lblTemp);
+            pnlDisplayInfo.Controls.Add(lblTemp);
 
 
             ComboBox cbTemp = new ComboBox();
@@ -584,7 +588,7 @@ namespace TimeTracker
             
 
             comboBoxes.Add(cbTemp);
-            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(cbTemp);
+            pnlDisplayInfo.Controls.Add(cbTemp);
             cbTemp.BringToFront();
 
 
@@ -596,9 +600,7 @@ namespace TimeTracker
             timeRoundedTemp.Text = "0";
 
             timeRoundedList.Add(timeRoundedTemp);
-            this.Controls["pnlTop"].Controls["pnlDisplayInfo"].Controls.Add(timeRoundedTemp);
-
-            
+            pnlDisplayInfo.Controls.Add(timeRoundedTemp);
         }
 
         private void issueCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -614,7 +616,7 @@ namespace TimeTracker
         {
             for (int i = 0; i < radioButtons.Count; i++)
             {
-                radioButtons[i].Top = 25 + (i * (radioButtons[i].Height + 5));
+                radioButtons[i].Top = i * (radioButtons[i].Height + 5);
                 labels[i].Top = radioButtons[i].Top;
                 comboBoxes[i].Top = radioButtons[i].Top;
                 timeRoundedList[i].Top = radioButtons[i].Top;
