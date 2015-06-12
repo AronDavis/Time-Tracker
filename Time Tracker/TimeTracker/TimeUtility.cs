@@ -56,14 +56,14 @@ namespace TimeTracker
             switch(direction)
             {
                 case RoundDirection.Up:
-                    roundedTicks = (long)Math.Ceiling((double)(time.Ticks) / roundTo.Ticks);
+                    roundedTicks = (long)Math.Ceiling((double)(time.Ticks) / roundTo.Ticks) * roundTo.Ticks;
                     roundedTime = new TimeSpan(roundedTicks);
                     break;
                 case RoundDirection.Average:
                     roundedTime = Round(time, increment, mode);
                     break;
                 case RoundDirection.Down:
-                    roundedTicks = (long)Math.Floor((double)(time.Ticks) / roundTo.Ticks);
+                    roundedTicks = (long)Math.Floor((double)(time.Ticks) / roundTo.Ticks) * roundTo.Ticks;
                     roundedTime = new TimeSpan(roundedTicks);
                     break;
                 default:
