@@ -14,32 +14,6 @@ namespace TimeTracker
             Hours
         }
 
-        //TODO: Delete 
-        public static TimeSpan Round(TimeSpan time, int increment, RoundIncrementMode mode)
-        {
-            TimeSpan roundTo;
-
-            switch (mode)
-            {
-                case RoundIncrementMode.Seconds: 
-                    roundTo = new TimeSpan(0, 0, increment);
-                    break;
-                case RoundIncrementMode.Minutes:
-                    roundTo = new TimeSpan(0, increment, 0);
-                    break;
-                case RoundIncrementMode.Hours:
-                    roundTo = new TimeSpan(increment, 0, 0);
-                    break;
-                default:
-                    roundTo = new TimeSpan();
-                    break;
-            }
-
-            long roundedTicks = (long)Math.Round((double)(time.Ticks) / roundTo.Ticks) * roundTo.Ticks;
-
-            return new TimeSpan(roundedTicks);
-        }
-
         public static TimeSpan Round(TimeSpan time, TimeSpan roundTo)
         {
             long roundedTicks = (long)Math.Round((double)(time.Ticks) / roundTo.Ticks) * roundTo.Ticks;
