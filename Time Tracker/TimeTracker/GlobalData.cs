@@ -8,6 +8,7 @@ namespace TimeTracker
 {
     public static class GlobalData
     {
+        public static TimeUtility.RoundDirection RoundDirection = TimeUtility.RoundDirection.Average;
         public static GlobalHotkey HotKey;
 
         public static List<IssueData> Issues = new List<IssueData>();
