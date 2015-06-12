@@ -525,7 +525,7 @@ namespace TimeTracker
         /// <param name="index"></param>
         public void UpdateRoundedTimeDisplay(int index)
         {
-            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, 15, TimeUtility.RoundIncrementMode.Minutes);
+            TimeSpan rounded = TimeUtility.Round(GlobalData.Issues[index].TodaysLoggedTime, new TimeSpan(0,15,0));
             timeRoundedList[index].Text = TimeUtility.FormatRoundedTime(rounded, TimeUtility.RoundIncrementMode.Hours);
         }
 
