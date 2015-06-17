@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
+    <Compile Include="CategoryUtility.cs" />
     <Compile Include="frmAddNewIssue.cs">
       <SubType>Form</SubType>
     </Compile>
