@@ -37,12 +37,10 @@
             this.btnStartStopTimer = new System.Windows.Forms.Button();
             this.pnlDisplayInfo = new System.Windows.Forms.Panel();
             this.lblTimeRounded = new System.Windows.Forms.Label();
-            this.lblCountTowardsWorkTime = new System.Windows.Forms.Label();
+            this.lblCategory = new System.Windows.Forms.Label();
             this.lblTimeToday = new System.Windows.Forms.Label();
             this.lblCurrentlySelected = new System.Windows.Forms.Label();
             this.activeTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblTotalTimeWorkedToday = new System.Windows.Forms.Label();
-            this.txtTotalTimeWorkedToday = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -68,8 +66,7 @@
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
-            this.txtTotalBreakTime = new System.Windows.Forms.Label();
-            this.lblTotalBreakTime = new System.Windows.Forms.Label();
+            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.trayIconContextMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -142,15 +139,15 @@
             this.lblTimeRounded.TabIndex = 8;
             this.lblTimeRounded.Text = "Time Rounded";
             // 
-            // lblCountTowardsWorkTime
+            // lblCategory
             // 
-            this.lblCountTowardsWorkTime.AutoSize = true;
-            this.lblCountTowardsWorkTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountTowardsWorkTime.Location = new System.Drawing.Point(285, 38);
-            this.lblCountTowardsWorkTime.Name = "lblCountTowardsWorkTime";
-            this.lblCountTowardsWorkTime.Size = new System.Drawing.Size(68, 13);
-            this.lblCountTowardsWorkTime.TabIndex = 7;
-            this.lblCountTowardsWorkTime.Text = "Work Time";
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategory.Location = new System.Drawing.Point(285, 38);
+            this.lblCategory.Name = "lblCategory";
+            this.lblCategory.Size = new System.Drawing.Size(57, 13);
+            this.lblCategory.TabIndex = 7;
+            this.lblCategory.Text = "Category";
             // 
             // lblTimeToday
             // 
@@ -177,28 +174,10 @@
             this.activeTimer.Interval = 60000;
             this.activeTimer.Tick += new System.EventHandler(this.AddTheElapsedTime);
             // 
-            // lblTotalTimeWorkedToday
-            // 
-            this.lblTotalTimeWorkedToday.AutoSize = true;
-            this.lblTotalTimeWorkedToday.Location = new System.Drawing.Point(194, 14);
-            this.lblTotalTimeWorkedToday.Name = "lblTotalTimeWorkedToday";
-            this.lblTotalTimeWorkedToday.Size = new System.Drawing.Size(89, 13);
-            this.lblTotalTimeWorkedToday.TabIndex = 9;
-            this.lblTotalTimeWorkedToday.Text = "Total Work Time:";
-            // 
-            // txtTotalTimeWorkedToday
-            // 
-            this.txtTotalTimeWorkedToday.AutoSize = true;
-            this.txtTotalTimeWorkedToday.Location = new System.Drawing.Point(337, 14);
-            this.txtTotalTimeWorkedToday.Name = "txtTotalTimeWorkedToday";
-            this.txtTotalTimeWorkedToday.Size = new System.Drawing.Size(49, 13);
-            this.txtTotalTimeWorkedToday.TabIndex = 10;
-            this.txtTotalTimeWorkedToday.Text = "00:00:00";
-            // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.lblTimeRounded);
-            this.pnlTop.Controls.Add(this.lblCountTowardsWorkTime);
+            this.pnlTop.Controls.Add(this.lblCategory);
             this.pnlTop.Controls.Add(this.menuStrip1);
             this.pnlTop.Controls.Add(this.lblTimeToday);
             this.pnlTop.Controls.Add(this.lblCurrentlySelected);
@@ -349,7 +328,7 @@
             this.upToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cbRoundDirections});
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.upToolStripMenuItem.Text = "Direction";
             // 
             // cbRoundDirections
@@ -364,7 +343,7 @@
             this.downToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtRoundTo});
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.downToolStripMenuItem.Text = "Round To...";
             // 
             // txtRoundTo
@@ -375,23 +354,20 @@
             // 
             // pnlBottom
             // 
+            this.pnlBottom.Controls.Add(this.ucTimeSummary1);
             this.pnlBottom.Controls.Add(this.txtTotalTime);
             this.pnlBottom.Controls.Add(this.lblTotalTime);
-            this.pnlBottom.Controls.Add(this.txtTotalBreakTime);
-            this.pnlBottom.Controls.Add(this.lblTotalBreakTime);
             this.pnlBottom.Controls.Add(this.btnStartStopTimer);
-            this.pnlBottom.Controls.Add(this.txtTotalTimeWorkedToday);
-            this.pnlBottom.Controls.Add(this.lblTotalTimeWorkedToday);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Location = new System.Drawing.Point(0, 332);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(526, 80);
+            this.pnlBottom.Size = new System.Drawing.Size(526, 191);
             this.pnlBottom.TabIndex = 12;
             // 
             // txtTotalTime
             // 
             this.txtTotalTime.AutoSize = true;
-            this.txtTotalTime.Location = new System.Drawing.Point(337, 45);
+            this.txtTotalTime.Location = new System.Drawing.Point(465, 14);
             this.txtTotalTime.Name = "txtTotalTime";
             this.txtTotalTime.Size = new System.Drawing.Size(49, 13);
             this.txtTotalTime.TabIndex = 14;
@@ -400,36 +376,26 @@
             // lblTotalTime
             // 
             this.lblTotalTime.AutoSize = true;
-            this.lblTotalTime.Location = new System.Drawing.Point(194, 45);
+            this.lblTotalTime.Location = new System.Drawing.Point(399, 14);
             this.lblTotalTime.Name = "lblTotalTime";
             this.lblTotalTime.Size = new System.Drawing.Size(60, 13);
             this.lblTotalTime.TabIndex = 13;
             this.lblTotalTime.Text = "Total Time:";
             // 
-            // txtTotalBreakTime
+            // ucTimeSummary1
             // 
-            this.txtTotalBreakTime.AutoSize = true;
-            this.txtTotalBreakTime.Location = new System.Drawing.Point(337, 27);
-            this.txtTotalBreakTime.Name = "txtTotalBreakTime";
-            this.txtTotalBreakTime.Size = new System.Drawing.Size(49, 13);
-            this.txtTotalBreakTime.TabIndex = 12;
-            this.txtTotalBreakTime.Text = "00:00:00";
-            // 
-            // lblTotalBreakTime
-            // 
-            this.lblTotalBreakTime.AutoSize = true;
-            this.lblTotalBreakTime.Location = new System.Drawing.Point(194, 27);
-            this.lblTotalBreakTime.Name = "lblTotalBreakTime";
-            this.lblTotalBreakTime.Size = new System.Drawing.Size(94, 13);
-            this.lblTotalBreakTime.TabIndex = 11;
-            this.lblTotalBreakTime.Text = "Total Break Time: ";
+            this.ucTimeSummary1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ucTimeSummary1.Location = new System.Drawing.Point(0, 41);
+            this.ucTimeSummary1.Name = "ucTimeSummary1";
+            this.ucTimeSummary1.Size = new System.Drawing.Size(526, 150);
+            this.ucTimeSummary1.TabIndex = 15;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(526, 412);
+            this.ClientSize = new System.Drawing.Size(526, 523);
             this.Controls.Add(this.pnlDisplayInfo);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlBottom);
@@ -457,8 +423,6 @@
         private System.Windows.Forms.Label lblTimeToday;
         private System.Windows.Forms.Label lblCurrentlySelected;
         private System.Windows.Forms.Timer activeTimer;
-        private System.Windows.Forms.Label lblTotalTimeWorkedToday;
-        private System.Windows.Forms.Label txtTotalTimeWorkedToday;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlBottom;
@@ -475,9 +439,7 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetSelectedTimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetAllTimeTodayToolStripMenuItem;
-        private System.Windows.Forms.Label lblCountTowardsWorkTime;
-        private System.Windows.Forms.Label txtTotalBreakTime;
-        private System.Windows.Forms.Label lblTotalBreakTime;
+        private System.Windows.Forms.Label lblCategory;
         private System.Windows.Forms.Label txtTotalTime;
         private System.Windows.Forms.Label lblTotalTime;
         private System.Windows.Forms.Label lblTimeRounded;
@@ -492,6 +454,7 @@
         private System.Windows.Forms.ToolStripMenuItem downToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox cbRoundDirections;
         private System.Windows.Forms.ToolStripTextBox txtRoundTo;
+        private ucTimeSummary ucTimeSummary1;
     }
 }
 

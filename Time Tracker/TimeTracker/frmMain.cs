@@ -89,6 +89,7 @@ namespace TimeTracker
                 radioButtons[0].Checked = true;
             }
 
+            ucTimeSummary1.Initialize();
             SumTime();
 
             activeTimer.Interval = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
@@ -498,34 +499,15 @@ namespace TimeTracker
 
         private void SumTime()
         {
-            TimeSpan sumOfWorkTime = TimeSpan.Zero;
-            TimeSpan sumOfBreakTime = TimeSpan.Zero;
             TimeSpan totalTime = TimeSpan.Zero;
-
-            TimeSpan[] categoryTimeSums = new TimeSpan[GlobalData.Categories.Count];
 
             for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
-                Category cat = (Category)comboBoxes[i].SelectedItem;
-
-                int catIndex = GlobalData.Categories.IndexOf(cat);
-                categoryTimeSums[catIndex] += GlobalData.Issues[i].TodaysLoggedTime;
-
-                if (comboBoxes[i].SelectedItem.ToString() == "Work") //TODO: make this work with categories
-                {
-                    sumOfWorkTime += GlobalData.Issues[i].TodaysLoggedTime;
-                }
-                else
-                {
-                    sumOfBreakTime += GlobalData.Issues[i].TodaysLoggedTime;
-                }
-
                 UpdateRoundedTimeDisplay(i);
                 totalTime += GlobalData.Issues[i].TodaysLoggedTime;
             }
 
-            txtTotalTimeWorkedToday.Text = sumOfWorkTime.ToString();
-            txtTotalBreakTime.Text = sumOfBreakTime.ToString();
+            ucTimeSummary1.Update();
             txtTotalTime.Text = totalTime.ToString();
         }
 
@@ -587,9 +569,9 @@ namespace TimeTracker
 
             ComboBox cbTemp = new ComboBox();
             cbTemp.Name = "cb" + issue.ID;
-            cbTemp.Left = lblCountTowardsWorkTime.Left;
+            cbTemp.Left = lblCategory.Left;
             cbTemp.Top = rbTemp.Top;
-            cbTemp.Width = lblCountTowardsWorkTime.Width;
+            cbTemp.Width = lblCategory.Width;
             //cbTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             cbTemp.Items.AddRange(GlobalData.Categories.ToArray());
             cbTemp.SelectedIndex = GlobalData.Categories.IndexOf(issue.Category);
