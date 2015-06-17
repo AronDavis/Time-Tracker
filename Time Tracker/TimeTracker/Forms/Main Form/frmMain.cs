@@ -55,6 +55,7 @@ namespace TimeTracker
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
+            SetupMenuEvents();
             trayIcon.Icon = this.Icon;         
 
             GlobalData.HotKey.Register();
@@ -66,11 +67,11 @@ namespace TimeTracker
 
             foreach (TimeUtility.RoundDirection dir in Enum.GetValues(typeof(TimeUtility.RoundDirection)))
             {
-                cbRoundDirections.Items.Add(dir);
+                ucMenuStrip1.cbRoundDirections.Items.Add(dir);
             }
 
-            cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
-            txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
+            ucMenuStrip1.cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
+            ucMenuStrip1.txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
 
             if (!System.IO.File.Exists(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType))
             {
@@ -440,11 +441,9 @@ namespace TimeTracker
                 e.Cancel = true;
                 HideEverything();
             }
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            HideEverything();
+            SaveSettingsFile();
+            SaveTodaysTimeLogFile();
         }
 
         private void btnStartTimer_Click(object sender, EventArgs e)
@@ -469,8 +468,8 @@ namespace TimeTracker
                 if (activeTimer.Enabled)
                 {
                     btnStartStopTimer.Text = "Stop Timer";
-                    startTimerToolStripMenuItem.Enabled = false;
-                    stopTimerToolStripMenuItem.Enabled = true;
+                    ucMenuStrip1.startTimerToolStripMenuItem.Enabled = false;
+                    ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
@@ -481,8 +480,8 @@ namespace TimeTracker
             {
                 activeTimer.Stop();
                 btnStartStopTimer.Text = "Start Timer";
-                startTimerToolStripMenuItem.Enabled = true;
-                stopTimerToolStripMenuItem.Enabled = false;
+                ucMenuStrip1.startTimerToolStripMenuItem.Enabled = true;
+                ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = false;
             }
                        
         }
@@ -656,11 +655,6 @@ namespace TimeTracker
             FixIssueInterface();
         }
 
-        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            HideEverything();
-        }
-
         private void HideEverything()
         {
             GlobalData.mainForm.Hide();
@@ -676,61 +670,6 @@ namespace TimeTracker
             GlobalData.mainForm.Activate();
 
             trayIcon.Visible = false;
-        }
-
-
-        private void addNewIssueToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (GlobalData.formAddNewIssue.IsDisposed)
-            {
-                GlobalData.formAddNewIssue = new frmAddNewIssue();
-            }
-
-            GlobalData.formAddNewIssue.Show();
-            GlobalData.formAddNewIssue.Activate();
-        }
-
-        private void removeIssuesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (GlobalData.formRemoveIssue.IsDisposed)
-            {
-                GlobalData.formRemoveIssue = new frmRemoveIssue();
-            }
-            GlobalData.formRemoveIssue.ShowThisForm();
-        }
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveSettingsFile();
-            SaveTodaysTimeLogFile();
-            this.Close();
-        }
-
-        private void resetSelectedTimeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            labels[indexOfCurrentlySelected].Text = TimeSpan.Zero.ToString();
-            SumTime();
-            SaveTodaysTimeLogFile();
-        }
-
-        private void resetAllTimeTodayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < labels.Count; i++)
-            {
-                labels[i].Text = TimeSpan.Zero.ToString();
-            }
-        }
-
-        private void changeHideUnhideHotkeyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (GlobalData.formChangeHotkey.IsDisposed)
-            {
-                GlobalData.formChangeHotkey = new frmChangeHotkey();
-            }
-            
-            GlobalData.formChangeHotkey.Show();
-            GlobalData.formChangeHotkey.Activate();
-            
         }
 
         private void trayUnhide_Click(object sender, EventArgs e)
@@ -754,32 +693,6 @@ namespace TimeTracker
             if (!GlobalData.HotKey.Unregister())
                 MessageBox.Show("Hotkey failed to unregister!");
             Close();
-        }
-
-        private void cbRoundDirections_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            GlobalData.RoundDirection = (TimeUtility.RoundDirection)cbRoundDirections.SelectedItem;
-            SumTime();
-        }
-
-        private void txtRoundTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
-            {
-                int minutes;
-
-                if(int.TryParse(txtRoundTo.Text, out minutes))
-                {
-                    GlobalData.RoundTo = new TimeSpan(0, minutes, 0);
-                    SumTime();
-                }
-                else MessageBox.Show("Please enter a whole number.");
-            }
-        }
-
-        private void miRounding_Click(object sender, EventArgs e)
-        {
-            txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
         }
     }
 }
