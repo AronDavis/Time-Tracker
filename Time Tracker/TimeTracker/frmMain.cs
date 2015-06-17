@@ -100,8 +100,8 @@ namespace TimeTracker
             GlobalData.Categories.Clear();
             GlobalData.Issues.Clear();
 
-            GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), "Work"));
-            GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), "Break"));
+            CategoryUtility.AddCategory("Work");
+            CategoryUtility.AddCategory("Break");
 
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             System.Xml.XmlElement rootNode;
