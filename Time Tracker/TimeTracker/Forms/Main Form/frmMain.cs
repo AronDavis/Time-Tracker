@@ -389,7 +389,7 @@ namespace TimeTracker
                 {
                     System.Xml.XmlNode catNode = categoriesNode.ChildNodes[i];
 
-                    GlobalData.Categories.Add(new Category(catNode.Name, catNode.InnerText));
+                    CategoryUtility.AddCategory(new Category(catNode.Name, catNode.InnerText));
                 }
 
                 issuesNode = rootNode.SelectSingleNode("Issues");

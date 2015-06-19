@@ -43,14 +43,17 @@
             this.activeTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.ucMenuStrip1 = new TimeTracker.ucMenuStrip();
             this.pnlBottom = new System.Windows.Forms.Panel();
-            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
+            this.splitTopBottom = new System.Windows.Forms.Splitter();
+            this.pnlTopOfBottom = new System.Windows.Forms.Panel();
+            this.ucMenuStrip1 = new TimeTracker.ucMenuStrip();
+            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.trayIconContextMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
+            this.pnlTopOfBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // trayIcon
@@ -92,7 +95,7 @@
             // 
             // btnStartStopTimer
             // 
-            this.btnStartStopTimer.Location = new System.Drawing.Point(15, 9);
+            this.btnStartStopTimer.Location = new System.Drawing.Point(12, 6);
             this.btnStartStopTimer.Name = "btnStartStopTimer";
             this.btnStartStopTimer.Size = new System.Drawing.Size(75, 23);
             this.btnStartStopTimer.TabIndex = 5;
@@ -167,38 +170,20 @@
             this.pnlTop.Size = new System.Drawing.Size(526, 59);
             this.pnlTop.TabIndex = 13;
             // 
-            // ucMenuStrip1
-            // 
-            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.ucMenuStrip1.Name = "ucMenuStrip1";
-            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
-            this.ucMenuStrip1.TabIndex = 9;
-            // 
             // pnlBottom
             // 
             this.pnlBottom.Controls.Add(this.ucTimeSummary1);
-            this.pnlBottom.Controls.Add(this.txtTotalTime);
-            this.pnlBottom.Controls.Add(this.lblTotalTime);
-            this.pnlBottom.Controls.Add(this.btnStartStopTimer);
+            this.pnlBottom.Controls.Add(this.pnlTopOfBottom);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Location = new System.Drawing.Point(0, 332);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(526, 191);
             this.pnlBottom.TabIndex = 12;
             // 
-            // ucTimeSummary1
-            // 
-            this.ucTimeSummary1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ucTimeSummary1.Location = new System.Drawing.Point(0, 41);
-            this.ucTimeSummary1.Name = "ucTimeSummary1";
-            this.ucTimeSummary1.Size = new System.Drawing.Size(526, 150);
-            this.ucTimeSummary1.TabIndex = 15;
-            // 
             // txtTotalTime
             // 
             this.txtTotalTime.AutoSize = true;
-            this.txtTotalTime.Location = new System.Drawing.Point(465, 14);
+            this.txtTotalTime.Location = new System.Drawing.Point(465, 11);
             this.txtTotalTime.Name = "txtTotalTime";
             this.txtTotalTime.Size = new System.Drawing.Size(49, 13);
             this.txtTotalTime.TabIndex = 14;
@@ -207,11 +192,49 @@
             // lblTotalTime
             // 
             this.lblTotalTime.AutoSize = true;
-            this.lblTotalTime.Location = new System.Drawing.Point(399, 14);
+            this.lblTotalTime.Location = new System.Drawing.Point(399, 11);
             this.lblTotalTime.Name = "lblTotalTime";
             this.lblTotalTime.Size = new System.Drawing.Size(60, 13);
             this.lblTotalTime.TabIndex = 13;
             this.lblTotalTime.Text = "Total Time:";
+            // 
+            // splitTopBottom
+            // 
+            this.splitTopBottom.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.splitTopBottom.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.splitTopBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitTopBottom.Location = new System.Drawing.Point(0, 329);
+            this.splitTopBottom.Name = "splitTopBottom";
+            this.splitTopBottom.Size = new System.Drawing.Size(526, 3);
+            this.splitTopBottom.TabIndex = 14;
+            this.splitTopBottom.TabStop = false;
+            // 
+            // pnlTopOfBottom
+            // 
+            this.pnlTopOfBottom.Controls.Add(this.btnStartStopTimer);
+            this.pnlTopOfBottom.Controls.Add(this.lblTotalTime);
+            this.pnlTopOfBottom.Controls.Add(this.txtTotalTime);
+            this.pnlTopOfBottom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTopOfBottom.Location = new System.Drawing.Point(0, 0);
+            this.pnlTopOfBottom.Name = "pnlTopOfBottom";
+            this.pnlTopOfBottom.Size = new System.Drawing.Size(526, 39);
+            this.pnlTopOfBottom.TabIndex = 16;
+            // 
+            // ucMenuStrip1
+            // 
+            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.ucMenuStrip1.Name = "ucMenuStrip1";
+            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
+            this.ucMenuStrip1.TabIndex = 9;
+            // 
+            // ucTimeSummary1
+            // 
+            this.ucTimeSummary1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucTimeSummary1.Location = new System.Drawing.Point(0, 39);
+            this.ucTimeSummary1.Name = "ucTimeSummary1";
+            this.ucTimeSummary1.Size = new System.Drawing.Size(526, 152);
+            this.ucTimeSummary1.TabIndex = 15;
             // 
             // frmMain
             // 
@@ -219,6 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(526, 523);
+            this.Controls.Add(this.splitTopBottom);
             this.Controls.Add(this.pnlDisplayInfo);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlBottom);
@@ -230,7 +254,8 @@
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlBottom.ResumeLayout(false);
-            this.pnlBottom.PerformLayout();
+            this.pnlTopOfBottom.ResumeLayout(false);
+            this.pnlTopOfBottom.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -256,6 +281,8 @@
         private System.Windows.Forms.ToolStripMenuItem trayExit;
         private ucTimeSummary ucTimeSummary1;
         private ucMenuStrip ucMenuStrip1;
+        private System.Windows.Forms.Splitter splitTopBottom;
+        private System.Windows.Forms.Panel pnlTopOfBottom;
     }
 }
 
