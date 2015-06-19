@@ -24,22 +24,32 @@ namespace TimeTracker
             table.Columns.Add(new DataColumn("Category"));
             table.Columns.Add(new DataColumn("Total Time"));
             table.Columns.Add(new DataColumn("Time Rounded"));
-            for (int i = 0; i < GlobalData.Categories.Count; i++)
-            {
-                DataRow row = table.NewRow();
-                row.SetField<string>(0, GlobalData.Categories[i].ID);
-                row.SetField<Category>(1, GlobalData.Categories[i]);
-                row.SetField<TimeSpan>(2, new TimeSpan());
-                row.SetField<TimeSpan>(3, new TimeSpan());
-                table.Rows.Add(row);
-            }
+            RefreshRows();
             dgvTimeSummary.DataSource = table;
             dgvTimeSummary.Columns[0].Visible = false;
         }
 
+        public void RefreshRows()
+        {
+            if (table.Rows.Count != GlobalData.Categories.Count)
+            {
+                table.Rows.Clear();
+
+                for (int i = 0; i < GlobalData.Categories.Count; i++)
+                {
+                    DataRow row = table.NewRow();
+                    row.SetField<string>(0, GlobalData.Categories[i].ID);
+                    row.SetField<Category>(1, GlobalData.Categories[i]);
+                    row.SetField<TimeSpan>(2, new TimeSpan());
+                    row.SetField<TimeSpan>(3, new TimeSpan());
+                    table.Rows.Add(row);
+                }
+            }
+        }
+
         public void Update()
         {
-
+            RefreshRows();
             TimeSpan[] categoryTimeSums = new TimeSpan[GlobalData.Categories.Count];
 
             for (int i = 0; i < GlobalData.Issues.Count; i++)

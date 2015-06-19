@@ -55,13 +55,6 @@ namespace TimeTracker
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            SetupMenuEvents();
-            trayIcon.Icon = this.Icon;         
-
-            System.IO.Directory.CreateDirectory(strDirectory);
-            System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
-            System.IO.Directory.CreateDirectory(strDirectory + strTimeLogsPath);
-
             foreach (TimeUtility.RoundDirection dir in Enum.GetValues(typeof(TimeUtility.RoundDirection)))
             {
                 ucMenuStrip1.cbRoundDirections.Items.Add(dir);
@@ -69,6 +62,14 @@ namespace TimeTracker
 
             ucMenuStrip1.cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
             ucMenuStrip1.txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
+
+            SetupMenuEvents();
+
+            trayIcon.Icon = this.Icon;         
+
+            System.IO.Directory.CreateDirectory(strDirectory);
+            System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
+            System.IO.Directory.CreateDirectory(strDirectory + strTimeLogsPath);           
 
             if (!System.IO.File.Exists(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType))
             {

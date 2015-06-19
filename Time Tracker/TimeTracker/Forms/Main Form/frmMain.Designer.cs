@@ -43,11 +43,11 @@
             this.activeTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.ucMenuStrip1 = new TimeTracker.ucMenuStrip();
             this.pnlBottom = new System.Windows.Forms.Panel();
-            this.ucTimeSummary1 = new ucTimeSummary();
+            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
-            this.ucMenuStrip1 = new ucMenuStrip();
             this.trayIconContextMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.pnlBottom.SuspendLayout();
@@ -167,6 +167,14 @@
             this.pnlTop.Size = new System.Drawing.Size(526, 59);
             this.pnlTop.TabIndex = 13;
             // 
+            // ucMenuStrip1
+            // 
+            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.ucMenuStrip1.Name = "ucMenuStrip1";
+            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
+            this.ucMenuStrip1.TabIndex = 9;
+            // 
             // pnlBottom
             // 
             this.pnlBottom.Controls.Add(this.ucTimeSummary1);
@@ -204,14 +212,6 @@
             this.lblTotalTime.Size = new System.Drawing.Size(60, 13);
             this.lblTotalTime.TabIndex = 13;
             this.lblTotalTime.Text = "Total Time:";
-            // 
-            // ucMenuStrip1
-            // 
-            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.ucMenuStrip1.Name = "ucMenuStrip1";
-            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
-            this.ucMenuStrip1.TabIndex = 9;
             // 
             // frmMain
             // 

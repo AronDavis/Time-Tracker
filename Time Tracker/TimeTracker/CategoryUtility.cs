@@ -10,6 +10,8 @@ namespace TimeTracker
 
         public static bool AddCategory(string name)
         {
+            name = String.Join(" ", name.Split(new string[]{" "}, StringSplitOptions.RemoveEmptyEntries));
+
             //If category doesn't exist
             if((from c in GlobalData.Categories where c.DisplayText == name select c).Count() == 0)
             {

@@ -23,7 +23,7 @@ namespace TimeTracker
             return -1;
         }
 
-        public static List<Category> Categories= new List<Category>();
+        public static List<Category> Categories = new List<Category>();
 
         public static Category GetCategoryByID(String id)
         {
