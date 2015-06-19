@@ -23,8 +23,19 @@ namespace TimeTracker
             ucMenuStrip1.miRounding.Click += miRounding_Click;
             ucMenuStrip1.startTimerToolStripMenuItem.Click += btnStartTimer_Click;
             ucMenuStrip1.stopTimerToolStripMenuItem.Click += btnStartTimer_Click;
+            ucMenuStrip1.miAddNewCategory.Click += miAddNewCategory_Click;
         }
 
+        void miAddNewCategory_Click(object sender, EventArgs e)
+        {
+            if (GlobalData.formAddNewCategory.IsDisposed)
+            {
+                GlobalData.formAddNewCategory = new frmAddNewCategory();
+            }
+
+            GlobalData.formAddNewCategory.Show();
+            GlobalData.formAddNewCategory.Activate();
+        }
 
         private void addNewIssueToolStripMenuItem2_Click(object sender, EventArgs e)
         {

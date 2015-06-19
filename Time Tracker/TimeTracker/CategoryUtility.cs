@@ -10,9 +10,11 @@ namespace TimeTracker
 
         public static bool AddCategory(string name)
         {
+            //If category doesn't exist
             if((from c in GlobalData.Categories where c.DisplayText == name select c).Count() == 0)
             {
                 GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), name));
+                GlobalData.mainForm.FixCategoryDisplay();
                 return true;
             }
 

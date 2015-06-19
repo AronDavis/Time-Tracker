@@ -49,6 +49,8 @@ namespace TimeTracker
         public static frmAddNewIssue formAddNewIssue = new frmAddNewIssue();
         public static frmRemoveIssue formRemoveIssue = new frmRemoveIssue();
 
+        public static frmAddNewCategory formAddNewCategory = new frmAddNewCategory();
+
         
         public static String GetUniqueID()
         {

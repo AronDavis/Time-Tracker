@@ -618,6 +618,22 @@ namespace TimeTracker
             }
         }
 
+        public void FixCategoryDisplay()
+        {
+            for(int i = 0; i < comboBoxes.Count; i++)
+            {
+                ComboBox cb = comboBoxes[i];
+                Category selected = (Category)cb.SelectedItem;
+
+                cb.Items.Clear();
+                cb.Items.AddRange(GlobalData.Categories.ToArray());
+
+                //if original category still exists, set it back to what it was originally
+                if (cb.Items.Contains(selected)) cb.SelectedItem = selected;
+                else throw new NotImplementedException();
+            }
+        }
+
         private void HandleNewIssueSelected(object sender, EventArgs e)
         {
             for (int i = 0; i < radioButtons.Count; i++)

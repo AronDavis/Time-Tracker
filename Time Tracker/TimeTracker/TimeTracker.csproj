@@ -72,13 +72,19 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="CategoryUtility.cs" />
+    <Compile Include="Forms\frmAddNewCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddNewCategory.Designer.cs">
+      <DependentUpon>frmAddNewCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main Form\MenuEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddNewIssue.cs">
+    <Compile Include="Forms\frmAddNewIssue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddNewIssue.Designer.cs">
+    <Compile Include="Forms\frmAddNewIssue.Designer.cs">
       <DependentUpon>frmAddNewIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChangeHotkey.cs">
@@ -118,7 +124,11 @@
     <Compile Include="UserControls\ucTimeSummary.Designer.cs">
       <DependentUpon>ucTimeSummary.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmAddNewIssue.resx">
+    <EmbeddedResource Include="Forms\frmAddNewCategory.resx">
+      <DependentUpon>frmAddNewCategory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddNewIssue.resx">
       <DependentUpon>frmAddNewIssue.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
