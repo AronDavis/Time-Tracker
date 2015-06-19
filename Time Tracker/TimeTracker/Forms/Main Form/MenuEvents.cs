@@ -24,37 +24,29 @@ namespace TimeTracker
             ucMenuStrip1.startTimerToolStripMenuItem.Click += btnStartTimer_Click;
             ucMenuStrip1.stopTimerToolStripMenuItem.Click += btnStartTimer_Click;
             ucMenuStrip1.miAddNewCategory.Click += miAddNewCategory_Click;
+            ucMenuStrip1.miRemoveCategory.Click += miRemoveCategory_Click;
+        }
+
+        void miRemoveCategory_Click(object sender, EventArgs e)
+        {
+            StaticForm.Open<frmRemoveCategory>(ref GlobalData.formRemoveCategory);
         }
 
         void miAddNewCategory_Click(object sender, EventArgs e)
         {
-            if (GlobalData.formAddNewCategory.IsDisposed)
-            {
-                GlobalData.formAddNewCategory = new frmAddNewCategory();
-            }
-
-            GlobalData.formAddNewCategory.Show();
-            GlobalData.formAddNewCategory.Activate();
+            StaticForm.Open<frmAddNewCategory>(ref GlobalData.formAddNewCategory);
         }
 
         private void addNewIssueToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (GlobalData.formAddNewIssue.IsDisposed)
-            {
-                GlobalData.formAddNewIssue = new frmAddNewIssue();
-            }
-
-            GlobalData.formAddNewIssue.Show();
-            GlobalData.formAddNewIssue.Activate();
+            StaticForm.Open<frmAddNewIssue>(ref GlobalData.formAddNewIssue);
         }
 
         private void removeIssuesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (GlobalData.formRemoveIssue.IsDisposed)
-            {
-                GlobalData.formRemoveIssue = new frmRemoveIssue();
-            }
-            GlobalData.formRemoveIssue.ShowThisForm();
+            StaticForm.Open<frmRemoveIssue>(ref GlobalData.formRemoveIssue);
+
+            GlobalData.formRemoveIssue.GenerateIssueInterface();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

@@ -99,8 +99,8 @@ namespace TimeTracker
             GlobalData.Categories.Clear();
             GlobalData.Issues.Clear();
 
-            CategoryUtility.AddCategory("Work");
-            CategoryUtility.AddCategory("Break");
+            CategoryUtility.AddCategory("Work", false);
+            CategoryUtility.AddCategory("Break", false);
 
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             System.Xml.XmlElement rootNode;
@@ -383,7 +383,6 @@ namespace TimeTracker
                 else GlobalData.HotKey = GlobalHotkey.Parse(hotkeyNode.InnerText);
                 GlobalData.HotKey.Register();
 
-                GlobalData.Issues.Clear();
                 categoriesNode = rootNode.SelectSingleNode("Categories");
                 for (int i = 0; i < categoriesNode.ChildNodes.Count; i++)
                 {
@@ -621,18 +620,19 @@ namespace TimeTracker
 
         public void FixCategoryDisplay()
         {
-            for(int i = 0; i < comboBoxes.Count; i++)
+            for(int i = 0; i < GlobalData.Issues.Count; i++)
             {
+                IssueData issue= GlobalData.Issues[i];
                 ComboBox cb = comboBoxes[i];
-                Category selected = (Category)cb.SelectedItem;
 
                 cb.Items.Clear();
                 cb.Items.AddRange(GlobalData.Categories.ToArray());
 
                 //if original category still exists, set it back to what it was originally
-                if (cb.Items.Contains(selected)) cb.SelectedItem = selected;
-                else throw new NotImplementedException();
+                if (cb.Items.Contains(issue.Category)) cb.SelectedItem = issue.Category;
+                else cb.SelectedIndex = -1;
             }
+            ucTimeSummary1.RefreshRows();
         }
 
         private void HandleNewIssueSelected(object sender, EventArgs e)

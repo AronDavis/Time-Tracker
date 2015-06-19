@@ -36,6 +36,8 @@
             this.miIssues = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewIssueToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeIssuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miAddNewCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,8 +50,7 @@
             this.cbRoundDirections = new System.Windows.Forms.ToolStripComboBox();
             this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtRoundTo = new System.Windows.Forms.ToolStripTextBox();
-            this.categoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.miAddNewCategory = new System.Windows.Forms.ToolStripMenuItem();
+            this.miRemoveCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             this.startTimerToolStripMenuItem,
             this.stopTimerToolStripMenuItem});
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.timerToolStripMenuItem.Text = "Timer";
             // 
             // startTimerToolStripMenuItem
@@ -108,7 +109,7 @@
             this.addNewIssueToolStripMenuItem2,
             this.removeIssuesToolStripMenuItem1});
             this.miIssues.Name = "miIssues";
-            this.miIssues.Size = new System.Drawing.Size(105, 22);
+            this.miIssues.Size = new System.Drawing.Size(152, 22);
             this.miIssues.Text = "Issues";
             // 
             // addNewIssueToolStripMenuItem2
@@ -123,16 +124,31 @@
             this.removeIssuesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.removeIssuesToolStripMenuItem1.Text = "Remove Issues";
             // 
+            // categoriesToolStripMenuItem
+            // 
+            this.categoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miAddNewCategory,
+            this.miRemoveCategory});
+            this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
+            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.categoriesToolStripMenuItem.Text = "Categories";
+            // 
+            // miAddNewCategory
+            // 
+            this.miAddNewCategory.Name = "miAddNewCategory";
+            this.miAddNewCategory.Size = new System.Drawing.Size(174, 22);
+            this.miAddNewCategory.Text = "Add New Category";
+            // 
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hideToolStripMenuItem.Text = "Hide";
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             // 
             // resetToolStripMenuItem
@@ -185,7 +201,7 @@
             this.upToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cbRoundDirections});
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.upToolStripMenuItem.Text = "Direction";
             // 
             // cbRoundDirections
@@ -199,7 +215,7 @@
             this.downToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtRoundTo});
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.downToolStripMenuItem.Text = "Round To...";
             // 
             // txtRoundTo
@@ -207,19 +223,11 @@
             this.txtRoundTo.Name = "txtRoundTo";
             this.txtRoundTo.Size = new System.Drawing.Size(100, 23);
             // 
-            // categoriesToolStripMenuItem
+            // miRemoveCategory
             // 
-            this.categoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miAddNewCategory});
-            this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
-            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.categoriesToolStripMenuItem.Text = "Categories";
-            // 
-            // miAddNewCategory
-            // 
-            this.miAddNewCategory.Name = "miAddNewCategory";
-            this.miAddNewCategory.Size = new System.Drawing.Size(174, 22);
-            this.miAddNewCategory.Text = "Add New Category";
+            this.miRemoveCategory.Name = "miRemoveCategory";
+            this.miRemoveCategory.Size = new System.Drawing.Size(174, 22);
+            this.miRemoveCategory.Text = "Remove Category";
             // 
             // ucMenuStrip
             // 
@@ -259,5 +267,6 @@
         public System.Windows.Forms.ToolStripMenuItem stopTimerToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem categoriesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem miAddNewCategory;
+        internal System.Windows.Forms.ToolStripMenuItem miRemoveCategory;
     }
 }

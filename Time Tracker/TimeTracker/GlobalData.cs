@@ -45,12 +45,10 @@ namespace TimeTracker
 
         public static frmMain mainForm;
         public static frmChangeHotkey formChangeHotkey = new frmChangeHotkey();
-
         public static frmAddNewIssue formAddNewIssue = new frmAddNewIssue();
         public static frmRemoveIssue formRemoveIssue = new frmRemoveIssue();
-
         public static frmAddNewCategory formAddNewCategory = new frmAddNewCategory();
-
+        public static frmRemoveCategory formRemoveCategory = new frmRemoveCategory();
         
         public static String GetUniqueID()
         {

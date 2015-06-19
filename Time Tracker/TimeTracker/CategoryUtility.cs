@@ -8,7 +8,7 @@ namespace TimeTracker
     class CategoryUtility
     {
 
-        public static bool AddCategory(string name)
+        public static bool AddCategory(string name, bool refreshDisplay = true)
         {
             name = String.Join(" ", name.Split(new string[]{" "}, StringSplitOptions.RemoveEmptyEntries));
 
@@ -17,7 +17,7 @@ namespace TimeTracker
             {
                 GlobalData.Categories.Add(new Category(GlobalData.GetUniqueID(), name));
                 sortCategories();
-                GlobalData.mainForm.FixCategoryDisplay();
+                if(refreshDisplay) GlobalData.mainForm.FixCategoryDisplay();
                 return true;
             }
 
@@ -34,6 +34,38 @@ namespace TimeTracker
             if(!GlobalData.Categories.Contains(cat))
             {
                 GlobalData.Categories.Add(cat);
+                sortCategories();
+                return true;
+            }
+
+            return false;
+        }
+
+        internal static bool RemoveCategory(Category cat)
+        {
+            if (GlobalData.Categories.Contains(cat))
+            {
+                GlobalData.Categories.Remove(cat);
+                sortCategories();
+                GlobalData.mainForm.FixCategoryDisplay();
+                return true;
+            }
+
+            return false;
+        }
+
+        internal static bool MergeCategories(Category mergeThis, Category intoThis)
+        {
+            if (mergeThis != intoThis && GlobalData.Categories.Contains(mergeThis))
+            {
+                //Replace it in every issue
+                foreach (IssueData issue in GlobalData.Issues)
+                {
+                    if (issue.Category == mergeThis) issue.Category = intoThis;
+                }
+
+                //Remove it
+                GlobalData.Categories.Remove(mergeThis);
                 sortCategories();
                 GlobalData.mainForm.FixCategoryDisplay();
                 return true;

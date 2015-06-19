@@ -16,15 +16,13 @@ namespace TimeTracker
         public frmRemoveIssue()
         {
             InitializeComponent();
-            GenerateIssueInterface();
         }
-
 
         public void GenerateIssueInterface()
         {
+            pnlMiddle.Controls.Clear();
             for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
-
                 CheckBox chkTemp = new CheckBox();
                 string ID = DateTime.Now.ToString("yyyyMMddhhmmssffftt");
                 chkTemp.Name = "chk" + ID;
