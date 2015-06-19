@@ -23,6 +23,12 @@ namespace TimeTracker.Hotkeys
             id = this.GetHashCode();
         }
 
+        public static GlobalHotkey Parse(string text)
+        {
+
+            return new GlobalHotkey(Convert.ToBoolean(Char.GetNumericValue(text[0])), Convert.ToBoolean(Char.GetNumericValue(text[1])), (Keys)int.Parse(text.Substring(2)));
+        }
+
         public bool Register()
         {
             return RegisterHotKey(hWnd, id, modifier, key);

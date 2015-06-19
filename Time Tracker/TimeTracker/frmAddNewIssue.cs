@@ -44,7 +44,7 @@ namespace TimeTracker
         private void AddAndClose()
         {
             GlobalData.mainForm.AddNewIssue(GlobalData.GetUniqueID(), txtIssueName.Text, ((Category)cbCategory.SelectedItem).ID, TimeSpan.Zero);
-
+            GlobalData.mainForm.SaveSettingsFile();
             ResetAndHide();
         }
 

@@ -58,9 +58,6 @@ namespace TimeTracker
             SetupMenuEvents();
             trayIcon.Icon = this.Icon;         
 
-            GlobalData.HotKey.Register();
-
-
             System.IO.Directory.CreateDirectory(strDirectory);
             System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
             System.IO.Directory.CreateDirectory(strDirectory + strTimeLogsPath);
@@ -250,7 +247,7 @@ namespace TimeTracker
             }
         }
 
-        private void SaveSettingsFile()
+        internal void SaveSettingsFile()
         {
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             System.Xml.XmlElement rootNode;
@@ -262,6 +259,10 @@ namespace TimeTracker
 
             rootNode = doc.CreateElement(strSettingsFileName);
             doc.AppendChild(rootNode);
+
+            System.Xml.XmlElement hotkeyNode = doc.CreateElement("HotKey");
+            hotkeyNode.InnerText = (GlobalData.HotKey.ctrl ? "1" : "0") + (GlobalData.HotKey.alt ? "1" : "0") + GlobalData.HotKey.key;
+            rootNode.AppendChild(hotkeyNode);
 
             categoriesNode = doc.CreateElement("Categories");
             rootNode.AppendChild(categoriesNode);
@@ -375,6 +376,11 @@ namespace TimeTracker
                 doc.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
 
                 rootNode = doc.SelectSingleNode(strSettingsFileName);
+
+                System.Xml.XmlNode hotkeyNode = rootNode.SelectSingleNode("HotKey");
+                if (hotkeyNode == null) GlobalData.HotKey = new GlobalHotkey(true, true, Keys.F10);
+                else GlobalData.HotKey = GlobalHotkey.Parse(hotkeyNode.InnerText);
+                GlobalData.HotKey.Register();
 
                 GlobalData.Issues.Clear();
                 categoriesNode = rootNode.SelectSingleNode("Categories");
@@ -522,9 +528,7 @@ namespace TimeTracker
 
         public void AddNewIssue(String uniqueID, String displayText, String categoryID, TimeSpan timeLogged)
         {
-            GlobalData.Issues.Add(new IssueData(uniqueID, displayText, GlobalData.GetCategoryByID(categoryID), timeLogged));
-
-            SaveSettingsFile();
+            GlobalData.Issues.Add(new IssueData(uniqueID, displayText, GlobalData.GetCategoryByID(categoryID), timeLogged));            
 
             GenerateNewIssueInterface();
         }
