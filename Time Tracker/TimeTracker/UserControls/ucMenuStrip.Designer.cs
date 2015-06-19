@@ -48,6 +48,8 @@
             this.cbRoundDirections = new System.Windows.Forms.ToolStripComboBox();
             this.downToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtRoundTo = new System.Windows.Forms.ToolStripTextBox();
+            this.categoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miAddNewCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +73,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.timerToolStripMenuItem,
             this.miIssues,
+            this.categoriesToolStripMenuItem,
             this.hideToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -83,7 +86,7 @@
             this.startTimerToolStripMenuItem,
             this.stopTimerToolStripMenuItem});
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.timerToolStripMenuItem.Text = "Timer";
             // 
             // startTimerToolStripMenuItem
@@ -105,7 +108,7 @@
             this.addNewIssueToolStripMenuItem2,
             this.removeIssuesToolStripMenuItem1});
             this.miIssues.Name = "miIssues";
-            this.miIssues.Size = new System.Drawing.Size(152, 22);
+            this.miIssues.Size = new System.Drawing.Size(105, 22);
             this.miIssues.Text = "Issues";
             // 
             // addNewIssueToolStripMenuItem2
@@ -123,13 +126,13 @@
             // hideToolStripMenuItem
             // 
             this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
-            this.hideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.hideToolStripMenuItem.Text = "Hide";
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             // 
             // resetToolStripMenuItem
@@ -182,7 +185,7 @@
             this.upToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cbRoundDirections});
             this.upToolStripMenuItem.Name = "upToolStripMenuItem";
-            this.upToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.upToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.upToolStripMenuItem.Text = "Direction";
             // 
             // cbRoundDirections
@@ -196,13 +199,27 @@
             this.downToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtRoundTo});
             this.downToolStripMenuItem.Name = "downToolStripMenuItem";
-            this.downToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.downToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.downToolStripMenuItem.Text = "Round To...";
             // 
             // txtRoundTo
             // 
             this.txtRoundTo.Name = "txtRoundTo";
             this.txtRoundTo.Size = new System.Drawing.Size(100, 23);
+            // 
+            // categoriesToolStripMenuItem
+            // 
+            this.categoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miAddNewCategory});
+            this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
+            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.categoriesToolStripMenuItem.Text = "Categories";
+            // 
+            // miAddNewCategory
+            // 
+            this.miAddNewCategory.Name = "miAddNewCategory";
+            this.miAddNewCategory.Size = new System.Drawing.Size(174, 22);
+            this.miAddNewCategory.Text = "Add New Category";
             // 
             // ucMenuStrip
             // 
@@ -240,5 +257,7 @@
         public System.Windows.Forms.ToolStripTextBox txtRoundTo;
         public System.Windows.Forms.ToolStripMenuItem startTimerToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem stopTimerToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem categoriesToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem miAddNewCategory;
     }
 }
