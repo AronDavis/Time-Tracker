@@ -7,7 +7,6 @@ namespace TimeTracker
 {
     class CategoryUtility
     {
-
         public static bool AddCategory(string name, bool refreshDisplay = true)
         {
             name = String.Join(" ", name.Split(new string[]{" "}, StringSplitOptions.RemoveEmptyEntries));

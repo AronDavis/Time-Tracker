@@ -8,11 +8,22 @@ namespace TimeTracker
 {
     public static class GlobalData
     {
+        internal const String strDirectory = @"C:\Program Files\TimeTracker\";
+        internal const String strSettingsPath = @"Settings\",
+            strSettingsFileName = "Settings",
+            strSettingsFileType = ".xml",
+            strTimeLogsPath = @"Time Logs\",
+            strTodaysTimeLogFileName = "TimeLog", //no space due to xml root node (could be fixed)
+            strTodaysTimeLogFileType = ".xml",
+            strEventLogPath = @"Event Log\",
+            strEventLogFileName = "EventLog",
+            strEventLogFileType = ".xml";
+
         public static TimeUtility.RoundDirection RoundDirection = TimeUtility.RoundDirection.Average;
         public static TimeSpan RoundTo = new TimeSpan(0, 15, 0);
         public static GlobalHotkey HotKey;
 
-        public static List<IssueData> Issues = new List<IssueData>();
+        internal static EventList<IssueData> Issues = new EventList<IssueData>();
 
         public static int GetIssueIndexByID(String id)
         {
@@ -23,7 +34,7 @@ namespace TimeTracker
             return -1;
         }
 
-        public static List<Category> Categories = new List<Category>();
+        internal static CategoryList Categories = new CategoryList();
 
         public static Category GetCategoryByID(String id)
         {

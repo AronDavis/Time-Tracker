@@ -11,15 +11,7 @@ namespace TimeTracker
     {
         private bool trueExit = false;
 
-        private System.Xml.XmlDocument xmlDoc, xmlTodaysLog;
-        private String strDirectory = @"C:\Program Files\TimeTracker\";
-        private const String strSettingsPath = @"Settings\",
-            strSettingsFileName = "Settings",
-            strSettingsFileType = ".xml",
-            strTimeLogsPath = @"Time Logs\",
-            strTodaysTimeLogFileName = "TimeLog",
-            strTodaysTimeLogFileType = ".xml";
-        
+        private System.Xml.XmlDocument xmlDoc, xmlTodaysLog;        
 
         private List<RadioButton> radioButtons = new List<RadioButton>();
         private List<Label> labels = new List<Label>();
@@ -63,21 +55,20 @@ namespace TimeTracker
             ucMenuStrip1.cbRoundDirections.SelectedItem = GlobalData.RoundDirection;
             ucMenuStrip1.txtRoundTo.Text = GlobalData.RoundTo.TotalMinutes.ToString();
 
-            SetupMenuEvents();
-
             trayIcon.Icon = this.Icon;         
 
-            System.IO.Directory.CreateDirectory(strDirectory);
-            System.IO.Directory.CreateDirectory(strDirectory + strSettingsPath);
-            System.IO.Directory.CreateDirectory(strDirectory + strTimeLogsPath);           
+            System.IO.Directory.CreateDirectory(GlobalData.strDirectory);
+            System.IO.Directory.CreateDirectory(GlobalData.strDirectory + GlobalData.strSettingsPath);
+            System.IO.Directory.CreateDirectory(GlobalData.strDirectory + GlobalData.strTimeLogsPath);
+            System.IO.Directory.CreateDirectory(GlobalData.strDirectory + GlobalData.strEventLogPath);
 
-            if (!System.IO.File.Exists(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType))
+            if (!System.IO.File.Exists(GlobalData.strDirectory + GlobalData.strSettingsPath + GlobalData.strSettingsFileName + GlobalData.strSettingsFileType))
             {
                 CreateNewSettingsFile();
             }
             LoadSettingsFile();
 
-            if (!System.IO.File.Exists(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType))
+            if (!System.IO.File.Exists(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType))
             {
                 CreateNewTimeLog();
             }
@@ -92,6 +83,9 @@ namespace TimeTracker
             SumTime();
 
             activeTimer.Interval = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
+
+            SetupMenuEvents();
+            SetupLogEvents();
         }
 
         private void CreateNewSettingsFile()
@@ -109,7 +103,7 @@ namespace TimeTracker
             System.Xml.XmlElement iNode;
 
             //Settings node
-            rootNode = doc.CreateElement(strSettingsFileName);
+            rootNode = doc.CreateElement(GlobalData.strSettingsFileName);
 
             //Add settings node
             doc.AppendChild(rootNode);
@@ -167,7 +161,7 @@ namespace TimeTracker
             iNode.AppendChild(catNode);
 
 
-            doc.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+            doc.Save(GlobalData.strDirectory + GlobalData.strSettingsPath + GlobalData.strSettingsFileName + GlobalData.strSettingsFileType);
         }
 
         private void CreateNewTimeLog()
@@ -179,7 +173,7 @@ namespace TimeTracker
 
             //Settings
 
-            xmlRootNode = xmlTimeLogDoc.CreateElement(strTodaysTimeLogFileName);
+            xmlRootNode = xmlTimeLogDoc.CreateElement(GlobalData.strTodaysTimeLogFileName);
 
             xmlTimeLogDoc.AppendChild(xmlRootNode);
 
@@ -204,19 +198,19 @@ namespace TimeTracker
                 xmlElement.AppendChild(xmlElementContents);
             }
 
-            xmlTimeLogDoc.Save(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType);
+            xmlTimeLogDoc.Save(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType);
         }
 
         private void SaveTodaysTimeLogFile()
         {
-            if (System.IO.File.Exists(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType))
+            if (System.IO.File.Exists(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType))
             {
                 System.Xml.XmlDocument xmlTimeLogDoc = new System.Xml.XmlDocument();
                 System.Xml.XmlElement xmlRootNode;
                 System.Xml.XmlElement xmlElement;
                 System.Xml.XmlElement xmlElementContents;
 
-                xmlRootNode = xmlTimeLogDoc.CreateElement(strTodaysTimeLogFileName);
+                xmlRootNode = xmlTimeLogDoc.CreateElement(GlobalData.strTodaysTimeLogFileName);
 
                 //DateStuff
                 xmlRootNode.SetAttribute("Date", DateTime.Now.Month + "/" + DateTime.Now.Day + "/" + DateTime.Now.Year);
@@ -238,7 +232,7 @@ namespace TimeTracker
                     xmlElement.AppendChild(xmlElementContents);
                 }
                 xmlTimeLogDoc.AppendChild(xmlRootNode);
-                xmlTimeLogDoc.Save(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType);
+                xmlTimeLogDoc.Save(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType);
             }
             else
             {
@@ -258,7 +252,7 @@ namespace TimeTracker
             System.Xml.XmlElement iNode;
             System.Xml.XmlElement xmlElementContents;
 
-            rootNode = doc.CreateElement(strSettingsFileName);
+            rootNode = doc.CreateElement(GlobalData.strSettingsFileName);
             doc.AppendChild(rootNode);
 
             System.Xml.XmlElement hotkeyNode = doc.CreateElement("HotKey");
@@ -301,7 +295,7 @@ namespace TimeTracker
                 iNode.AppendChild(xmlElementContents);
             }
 
-            doc.Save(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+            doc.Save(GlobalData.strDirectory + GlobalData.strSettingsPath + GlobalData.strSettingsFileName + GlobalData.strSettingsFileType);
 
         }
 
@@ -314,10 +308,10 @@ namespace TimeTracker
             try
             {
                 //load it
-                xmlTimeLogFile.Load(strDirectory + strTimeLogsPath + GetTodaysDateForSave() + strTodaysTimeLogFileName + strTodaysTimeLogFileType);
+                xmlTimeLogFile.Load(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType);
 
                 //get the root node
-                xmlRootNode = xmlTimeLogFile.SelectSingleNode(strTodaysTimeLogFileName);
+                xmlRootNode = xmlTimeLogFile.SelectSingleNode(GlobalData.strTodaysTimeLogFileName);
 
                 //loop through all of the stored issues
                 for (int i = 0; i < xmlRootNode.ChildNodes.Count; i++)
@@ -374,9 +368,9 @@ namespace TimeTracker
 
             try
             {
-                doc.Load(strDirectory + strSettingsPath + strSettingsFileName + strSettingsFileType);
+                doc.Load(GlobalData.strDirectory + GlobalData.strSettingsPath + GlobalData.strSettingsFileName + GlobalData.strSettingsFileType);
 
-                rootNode = doc.SelectSingleNode(strSettingsFileName);
+                rootNode = doc.SelectSingleNode(GlobalData.strSettingsFileName);
 
                 System.Xml.XmlNode hotkeyNode = rootNode.SelectSingleNode("HotKey");
                 if (hotkeyNode == null) GlobalData.HotKey = new GlobalHotkey(true, true, Keys.F10);
@@ -528,7 +522,7 @@ namespace TimeTracker
 
         public void AddNewIssue(String uniqueID, String displayText, String categoryID, TimeSpan timeLogged)
         {
-            GlobalData.Issues.Add(new IssueData(uniqueID, displayText, GlobalData.GetCategoryByID(categoryID), timeLogged));            
+            GlobalData.Issues.Add(new IssueData(uniqueID, displayText, GlobalData.GetCategoryByID(categoryID), timeLogged));        
 
             GenerateNewIssueInterface();
         }
