@@ -16,6 +16,8 @@ namespace TimeTracker
             GlobalData.Categories.ItemAdded += EventLog.NewCategoryAdded;
             GlobalData.Categories.ItemRemoved += EventLog.CategoryRemoved;
             GlobalData.Categories.ItemMerged += EventLog.CategoryMerged;
+            GlobalData.mainForm.activeTimer.TimerStarted += EventLog.TimerStarted;
+            GlobalData.mainForm.activeTimer.TimerStopped += EventLog.TimerStopped;
         }
     }
 }

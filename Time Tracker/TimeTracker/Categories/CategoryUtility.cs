@@ -60,7 +60,7 @@ namespace TimeTracker
                 //Replace it in every issue
                 foreach (IssueData issue in GlobalData.Issues)
                 {
-                    if (issue.Category == mergeThis) issue.Category = intoThis;
+                    if (issue.Category == mergeThis) issue.SetCategory(intoThis);
                 }
 
                 //Remove it

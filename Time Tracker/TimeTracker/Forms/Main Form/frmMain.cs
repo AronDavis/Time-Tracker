@@ -597,7 +597,7 @@ namespace TimeTracker
             ComboBox cb = (ComboBox)sender;
 
             int i = GlobalData.GetIssueIndexByID(cb.Name.Remove(0, 2));
-            GlobalData.Issues[i].Category = (Category)cb.SelectedItem;
+            GlobalData.Issues[i].SetCategory((Category)cb.SelectedItem);
             SaveSettingsFile();
         }
 
@@ -636,6 +636,9 @@ namespace TimeTracker
                 if (radioButtons[i].Checked == true)
                 {
                     indexOfCurrentlySelected = i;
+
+                    EventLog.ActiveIssueChanged(GlobalData.Issues[i]);
+                    break;
                 }
             }
         }

@@ -56,7 +56,7 @@ namespace TimeTracker
 
         private void resetSelectedTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            labels[indexOfCurrentlySelected].Text = TimeSpan.Zero.ToString();
+            GlobalData.Issues[indexOfCurrentlySelected].ResetTime();
             SumTime();
             SaveTodaysTimeLogFile();
         }
@@ -65,7 +65,7 @@ namespace TimeTracker
         {
             for (int i = 0; i < labels.Count; i++)
             {
-                labels[i].Text = TimeSpan.Zero.ToString();
+                GlobalData.Issues[i].ResetTime();
             }
         }
 

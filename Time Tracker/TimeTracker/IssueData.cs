@@ -9,7 +9,7 @@ namespace TimeTracker
     {
         public String ID;
         public String DisplayText;
-        public Category Category;
+        public Category Category { get; private set; }
         public TimeSpan TodaysLoggedTime;
 
         public IssueData(String id, string displayText, Category category, TimeSpan todaysLoggedTime)
@@ -18,6 +18,18 @@ namespace TimeTracker
             DisplayText = displayText;
             Category = category;
             TodaysLoggedTime = todaysLoggedTime;
+        }
+
+        internal void ResetTime()
+        {
+            TodaysLoggedTime = TimeSpan.Zero;
+            EventLog.TimeReset(this);
+        }
+
+        internal void SetCategory(Category newCat)
+        {
+            EventLog.ChangedIssueCategory(this, Category, newCat);
+            Category = newCat;
         }
     }
 }

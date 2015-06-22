@@ -40,7 +40,7 @@
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblTimeToday = new System.Windows.Forms.Label();
             this.lblCurrentlySelected = new System.Windows.Forms.Label();
-            this.activeTimer = new System.Windows.Forms.Timer(this.components);
+            this.activeTimer = new EventTimer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.pnlBottom = new System.Windows.Forms.Panel();
@@ -267,7 +267,7 @@
         private System.Windows.Forms.Panel pnlDisplayInfo;
         private System.Windows.Forms.Label lblTimeToday;
         private System.Windows.Forms.Label lblCurrentlySelected;
-        private System.Windows.Forms.Timer activeTimer;
+        private EventTimer activeTimer;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlBottom;

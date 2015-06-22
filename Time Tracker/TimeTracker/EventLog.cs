@@ -14,9 +14,9 @@ namespace TimeTracker
             NewCategory,
             MergeCategory,
             ChangedIssueCategory,
-            ResetTime,
             StartTimer,
             StopTimer,
+            ResetTime,
             SwitchedActiveIssue
         }
 
@@ -74,6 +74,42 @@ namespace TimeTracker
         {
             return false;
         }
+        #endregion     
+
+        internal static bool ChangedIssueCategory(IssueData issue, Category oldCat, Category newCat)
+        {
+            return false;
+        }
+
+        #region Timer
+        internal static void TimerStarted(object sender, EventTimer.TimerArgs e)
+        {
+            HandleTimerStarted(e.time);
+        }
+
+        private static bool HandleTimerStarted(DateTime timeStarted)
+        {
+            return false;
+        }
+
+        internal static void TimerStopped(object sender, EventTimer.TimerArgs e)
+        {
+            HandleTimerStopped(e.time);
+        }
+
+        private static bool HandleTimerStopped(DateTime timeStarted)
+        {
+            return false;
+        }
         #endregion
+
+        internal static bool TimeReset(IssueData issue)
+        {
+            return false;
+        }
+        internal static bool ActiveIssueChanged(IssueData newActive)
+        {
+            return false;
+        }
     }
 }
