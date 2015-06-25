@@ -15,6 +15,7 @@ namespace TimeTracker
 
         private List<RadioButton> radioButtons = new List<RadioButton>();
         private List<Label> labels = new List<Label>();
+        private List<ucTimeEditor> timeEditors = new List<ucTimeEditor>();
         private List<ComboBox> comboBoxes = new List<ComboBox>();
         private List<Label> timeRoundedList = new List<Label>();
 
@@ -559,10 +560,24 @@ namespace TimeTracker
             lblTemp.Top = rbTemp.Top;
             lblTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             lblTemp.Text = issue.TodaysLoggedTime.ToString();
+            lblTemp.DoubleClick += lblTemp_DoubleClick;
 
             labels.Add(lblTemp);
             pnlDisplayInfo.Controls.Add(lblTemp);
 
+            ucTimeEditor teTemp = new ucTimeEditor();
+            teTemp.Name = "te" + issue.ID;
+            teTemp.Left = lblTimeToday.Left;
+            teTemp.Top = rbTemp.Top;
+            teTemp.Width = 75;
+            teTemp.Text = issue.TodaysLoggedTime.ToString();
+            teTemp.Visible = false;
+            teTemp.EnterPressed += teTemp_EnterPressed;
+            teTemp.EscapePressed += teTemp_EscapePressed;
+            teTemp.LostFocus += teTemp_LostFocus;
+            timeEditors.Add(teTemp);
+            pnlDisplayInfo.Controls.Add(teTemp);
+            teTemp.BringToFront();
 
             ComboBox cbTemp = new ComboBox();
             cbTemp.Name = "cb" + issue.ID;
@@ -590,6 +605,51 @@ namespace TimeTracker
 
             timeRoundedList.Add(timeRoundedTemp);
             pnlDisplayInfo.Controls.Add(timeRoundedTemp);
+        }
+
+        void teTemp_LostFocus(object sender, EventArgs e)
+        {
+            Debug.WriteLine("main lost focus");
+            ucTimeEditor te = (ucTimeEditor)sender;
+            if (!te.Visible) return;
+
+            te.Visible = false;
+            te.Reset();
+        }
+
+        void teTemp_EnterPressed(object sender, EventArgs e)
+        {
+            Debug.WriteLine("main enterPressed");
+            ucTimeEditor te = (ucTimeEditor)sender;
+            if (!te.Visible) return;
+
+            int i = GlobalData.GetIssueIndexByID(te.Name.Remove(0, 2));
+            GlobalData.Issues[i].TodaysLoggedTime = te.GetTime();
+            labels[i].Text = te.GetTime().ToString();
+            te.Visible = false; //invis must come after or lose focus will fire early
+            te.Reset(); //ends up being redundant due to lost focus firing
+            SumTime();
+            SaveTodaysTimeLogFile();
+        }
+
+        void teTemp_EscapePressed(object sender, EventArgs e)
+        {
+            ucTimeEditor te = (ucTimeEditor)sender;
+            if (!te.Visible) return;
+
+            te.Visible = false;
+            te.Reset();
+        }
+
+        void lblTemp_DoubleClick(object sender, EventArgs e)
+        {
+            int i = GlobalData.GetIssueIndexByID((sender as Label).Name.Remove(0, 3));
+            ucTimeEditor te = timeEditors[i];
+            if (te.Visible) return;
+            te.Value += GlobalData.Issues[i].TodaysLoggedTime;
+            te.Visible = true;
+            te.Focus();
+            if (activeTimer.Enabled && radioButtons[i].Checked) activeTimer.Stop();
         }
 
         private void issueCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -711,6 +771,11 @@ namespace TimeTracker
             if (!GlobalData.HotKey.Unregister())
                 MessageBox.Show("Hotkey failed to unregister!");
             Close();
+        }
+
+        private void pnlDisplayInfo_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
         }
     }
 }

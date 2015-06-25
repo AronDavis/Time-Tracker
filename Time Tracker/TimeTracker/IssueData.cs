@@ -10,7 +10,7 @@ namespace TimeTracker
         public String ID;
         public String DisplayText;
         public Category Category { get; private set; }
-        public TimeSpan TodaysLoggedTime;
+        public TimeSpan TodaysLoggedTime{ get; set; }
 
         public IssueData(String id, string displayText, Category category, TimeSpan todaysLoggedTime)
         {
