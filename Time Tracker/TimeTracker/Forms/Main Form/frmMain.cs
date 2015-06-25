@@ -775,7 +775,12 @@ namespace TimeTracker
 
         private void pnlDisplayInfo_Click(object sender, EventArgs e)
         {
-            ActiveControl = null;
+            ActiveControl = null; //for time editor
+        }
+
+        private void pnlTopOfBottom_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null; //for time editor
         }
     }
 }

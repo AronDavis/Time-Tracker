@@ -202,6 +202,7 @@
             this.pnlTopOfBottom.Name = "pnlTopOfBottom";
             this.pnlTopOfBottom.Size = new System.Drawing.Size(526, 39);
             this.pnlTopOfBottom.TabIndex = 16;
+            this.pnlTopOfBottom.Click += new System.EventHandler(this.pnlTopOfBottom_Click);
             // 
             // lblTotalTime
             // 
