@@ -23,7 +23,8 @@ namespace TimeTracker
             table.Columns.Add(new DataColumn("ID"));
             table.Columns.Add(new DataColumn("Category"));
             table.Columns.Add(new DataColumn("Total Time"));
-            table.Columns.Add(new DataColumn("Time Rounded"));
+            table.Columns.Add(new DataColumn("Total Time Rounded"));
+            table.Columns.Add(new DataColumn("Rounded Time Sum"));
             RefreshRows();
             dgvTimeSummary.DataSource = table;
             dgvTimeSummary.Columns[0].Visible = false;
@@ -42,15 +43,17 @@ namespace TimeTracker
                     row.SetField<Category>(1, GlobalData.Categories[i]);
                     row.SetField<TimeSpan>(2, new TimeSpan());
                     row.SetField<TimeSpan>(3, new TimeSpan());
+                    row.SetField<string>(4, "");
                     table.Rows.Add(row);
                 }
             }
         }
 
-        public void Update()
+        public void UpdateData()
         {
             RefreshRows();
             TimeSpan[] categoryTimeSums = new TimeSpan[GlobalData.Categories.Count];
+            TimeSpan[] categoryRoundedTimeSums = new TimeSpan[GlobalData.Categories.Count];
 
             for (int i = 0; i < GlobalData.Issues.Count; i++)
             {
@@ -58,6 +61,7 @@ namespace TimeTracker
 
                 int catIndex = GlobalData.Categories.IndexOf(cat);
                 categoryTimeSums[catIndex] += GlobalData.Issues[i].TodaysLoggedTime;
+                categoryRoundedTimeSums[catIndex] += TimeUtility.Round(GlobalData.Issues[i].TodaysLoggedTime, GlobalData.RoundTo, GlobalData.RoundDirection);
             }
 
             
@@ -66,6 +70,7 @@ namespace TimeTracker
                 DataRow row = table.Select(String.Format("ID = '{0}'", GlobalData.Categories[i].ID))[0];
                 row.SetField<TimeSpan>(2, categoryTimeSums[i]);
                 row.SetField<TimeSpan>(3, TimeUtility.Round(categoryTimeSums[i], GlobalData.RoundTo, GlobalData.RoundDirection));
+                row.SetField<string>(4, TimeUtility.FormatRoundedTime(categoryRoundedTimeSums[i], TimeUtility.RoundIncrementMode.Hours));
             }
         }
     }

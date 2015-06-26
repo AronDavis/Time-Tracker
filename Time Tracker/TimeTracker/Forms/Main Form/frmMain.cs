@@ -515,7 +515,7 @@ namespace TimeTracker
                 totalTime += GlobalData.Issues[i].TodaysLoggedTime;
             }
 
-            ucTimeSummary1.Update();
+            ucTimeSummary1.UpdateData();
             txtTotalTime.Text = totalTime.ToString();
         }
 
@@ -666,6 +666,7 @@ namespace TimeTracker
 
             int i = GlobalData.GetIssueIndexByID(cb.Name.Remove(0, 2));
             GlobalData.Issues[i].SetCategory((Category)cb.SelectedItem);
+            SumTime();
             SaveSettingsFile();
         }
 
