@@ -447,6 +447,27 @@ namespace TimeTracker
             SaveTodaysTimeLogFile();
         }
 
+        public void StartTimer()
+        {
+            activeTimer.Start();
+            if (activeTimer.Enabled)
+            {
+                btnStartStopTimer.Text = "Stop Timer";
+                ucMenuStrip1.startTimerToolStripMenuItem.Enabled = false;
+                ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = true;
+            }
+            else MessageBox.Show("No issue was selected. Cannot start timer.");
+        }
+
+        public void StopTimer()
+        {
+            activeTimer.Stop();
+
+            btnStartStopTimer.Text = "Start Timer";
+            ucMenuStrip1.startTimerToolStripMenuItem.Enabled = true;
+            ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = false;
+        }
+
         private void btnStartTimer_Click(object sender, EventArgs e)
         {
             if (btnStartStopTimer.Text == "Start Timer")
@@ -462,29 +483,13 @@ namespace TimeTracker
                     if (radioButtons[i].Checked == true)
                     {
                         indexOfCurrentlySelected = i;
-                        activeTimer.Start();
+
+                        if (timeEditors[i].Visible) timeEditors[i].EscapePressed(timeEditors[i], new EventArgs());
+                        StartTimer();
                     }
                 }
-
-                if (activeTimer.Enabled)
-                {
-                    btnStartStopTimer.Text = "Stop Timer";
-                    ucMenuStrip1.startTimerToolStripMenuItem.Enabled = false;
-                    ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = true;
-                }
-                else
-                {
-                    MessageBox.Show("No issue was selected.");
-                }
             }
-            else
-            {
-                activeTimer.Stop();
-                btnStartStopTimer.Text = "Start Timer";
-                ucMenuStrip1.startTimerToolStripMenuItem.Enabled = true;
-                ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = false;
-            }
-                       
+            else StopTimer();          
         }
 
         private void AddTheElapsedTime(object sender, EventArgs e)
@@ -567,9 +572,9 @@ namespace TimeTracker
 
             ucTimeEditor teTemp = new ucTimeEditor();
             teTemp.Name = "te" + issue.ID;
-            teTemp.Left = lblTimeToday.Left;
+            teTemp.Left = lblTimeToday.Left - teTemp.AlignmentOffset;
             teTemp.Top = rbTemp.Top;
-            teTemp.Width = 75;
+            teTemp.Width = 75 + teTemp.AlignmentOffset;
             teTemp.Text = issue.TodaysLoggedTime.ToString();
             teTemp.Visible = false;
             teTemp.EnterPressed += teTemp_EnterPressed;

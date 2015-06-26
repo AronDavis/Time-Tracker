@@ -16,6 +16,7 @@ namespace TimeTracker
         new public EventHandler LostFocus;
         new public EventHandler EnterPressed;
         new public EventHandler EscapePressed;
+        public int AlignmentOffset { get; private set; }
 
         public DateTime Value { 
             get
@@ -32,17 +33,12 @@ namespace TimeTracker
         public ucTimeEditor()
         {
             InitializeComponent();
+            AlignmentOffset = btnSave.Width + btnCancel.Width;
         }
 
         private void ucTimeEditor_Load(object sender, EventArgs e)
         {
             dtp.CustomFormat = "HH:mm:ss";
-            dtp.LostFocus += dtp_LostFocus;
-        }
-
-        void dtp_LostFocus(object sender, EventArgs e)
-        {
-            LostFocus(this, e);
         }
 
         new public void Focus()
@@ -67,15 +63,17 @@ namespace TimeTracker
 
             if (e.KeyChar == Convert.ToChar(Keys.Escape)) EscapePressed(this, new EventArgs());
 
-            if (enterPressed) Visible = false; //this will trigger value change if it needs to be changed
+            if (enterPressed) btnSave_Click(btnSave, new EventArgs());
         }
 
-        private void dtp_ValueChanged(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            if(enterPressed && EnterPressed != null)
-            {
-               EnterPressed(this,new EventArgs());
-            }
+            if(EnterPressed != null) EnterPressed(this,new EventArgs());
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (EscapePressed != null) EscapePressed(this, new EventArgs());
         }
     }
 }
