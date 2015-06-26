@@ -42,13 +42,13 @@
             this.lblCurrentlySelected = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.ucMenuStrip1 = new TimeTracker.ucMenuStrip();
             this.pnlBottom = new System.Windows.Forms.Panel();
-            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.pnlTopOfBottom = new System.Windows.Forms.Panel();
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.txtTotalTime = new System.Windows.Forms.Label();
             this.splitTopBottom = new System.Windows.Forms.Splitter();
+            this.ucMenuStrip1 = new TimeTracker.ucMenuStrip();
+            this.ucTimeSummary1 = new TimeTracker.ucTimeSummary();
             this.activeTimer = new TimeTracker.EventTimer(this.components);
             this.trayIconContextMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
@@ -166,14 +166,6 @@
             this.pnlTop.Size = new System.Drawing.Size(526, 59);
             this.pnlTop.TabIndex = 13;
             // 
-            // ucMenuStrip1
-            // 
-            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.ucMenuStrip1.Name = "ucMenuStrip1";
-            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
-            this.ucMenuStrip1.TabIndex = 9;
-            // 
             // pnlBottom
             // 
             this.pnlBottom.Controls.Add(this.ucTimeSummary1);
@@ -183,14 +175,6 @@
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(526, 191);
             this.pnlBottom.TabIndex = 12;
-            // 
-            // ucTimeSummary1
-            // 
-            this.ucTimeSummary1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucTimeSummary1.Location = new System.Drawing.Point(0, 39);
-            this.ucTimeSummary1.Name = "ucTimeSummary1";
-            this.ucTimeSummary1.Size = new System.Drawing.Size(526, 152);
-            this.ucTimeSummary1.TabIndex = 15;
             // 
             // pnlTopOfBottom
             // 
@@ -232,6 +216,22 @@
             this.splitTopBottom.Size = new System.Drawing.Size(526, 3);
             this.splitTopBottom.TabIndex = 14;
             this.splitTopBottom.TabStop = false;
+            // 
+            // ucMenuStrip1
+            // 
+            this.ucMenuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ucMenuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.ucMenuStrip1.Name = "ucMenuStrip1";
+            this.ucMenuStrip1.Size = new System.Drawing.Size(526, 24);
+            this.ucMenuStrip1.TabIndex = 9;
+            // 
+            // ucTimeSummary1
+            // 
+            this.ucTimeSummary1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucTimeSummary1.Location = new System.Drawing.Point(0, 39);
+            this.ucTimeSummary1.Name = "ucTimeSummary1";
+            this.ucTimeSummary1.Size = new System.Drawing.Size(526, 152);
+            this.ucTimeSummary1.TabIndex = 15;
             // 
             // activeTimer
             // 

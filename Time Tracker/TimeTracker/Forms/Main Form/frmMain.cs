@@ -452,6 +452,7 @@ namespace TimeTracker
             activeTimer.Start();
             if (activeTimer.Enabled)
             {
+                pnlBottom.BackColor = System.Drawing.Color.FromArgb(150, 255, 175); //green
                 btnStartStopTimer.Text = "Stop Timer";
                 ucMenuStrip1.startTimerToolStripMenuItem.Enabled = false;
                 ucMenuStrip1.stopTimerToolStripMenuItem.Enabled = true;
@@ -462,6 +463,8 @@ namespace TimeTracker
         public void StopTimer()
         {
             activeTimer.Stop();
+
+            pnlBottom.BackColor = System.Drawing.Color.FromArgb(255, 75, 75); //red
 
             btnStartStopTimer.Text = "Start Timer";
             ucMenuStrip1.startTimerToolStripMenuItem.Enabled = true;
@@ -654,7 +657,7 @@ namespace TimeTracker
             te.Value += GlobalData.Issues[i].TodaysLoggedTime;
             te.Visible = true;
             te.Focus();
-            if (activeTimer.Enabled && radioButtons[i].Checked) activeTimer.Stop();
+            if (activeTimer.Enabled && radioButtons[i].Checked) StopTimer();
         }
 
         private void issueCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -703,6 +706,9 @@ namespace TimeTracker
                     indexOfCurrentlySelected = i;
 
                     EventLog.ActiveIssueChanged(GlobalData.Issues[i]);
+
+                    //if timer is running
+                    if (activeTimer.Enabled && timeEditors[i].Visible) StopTimer();
                     break;
                 }
             }
