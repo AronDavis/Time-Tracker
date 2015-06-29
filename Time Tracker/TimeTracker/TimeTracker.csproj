@@ -73,10 +73,12 @@
     <Compile Include="Categories\CategoryList.cs" />
     <Compile Include="Categories\Category.cs" />
     <Compile Include="Categories\CategoryUtility.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="EventList.cs" />
     <Compile Include="EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="EventUtility.cs" />
     <Compile Include="Forms\frmAddNewCategory.cs">
       <SubType>Form</SubType>
     </Compile>

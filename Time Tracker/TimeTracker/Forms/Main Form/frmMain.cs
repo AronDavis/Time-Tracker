@@ -69,6 +69,12 @@ namespace TimeTracker
             }
             LoadSettingsFile();
 
+            if (!System.IO.File.Exists(GlobalData.strDirectory + GlobalData.strEventLogPath + GlobalData.strEventLogFileName + GlobalData.strEventLogFileType))
+            {
+                CreateNewEventLogFile();
+            }
+            LoadEventLogFile();
+
             if (!System.IO.File.Exists(GlobalData.strDirectory + GlobalData.strTimeLogsPath + GetTodaysDateForSave() + GlobalData.strTodaysTimeLogFileName + GlobalData.strTodaysTimeLogFileType))
             {
                 CreateNewTimeLog();
@@ -433,6 +439,55 @@ namespace TimeTracker
         private String GetTodaysDateForSave()
         {
             return (DateTime.Now.ToString("yyyy-MM-dd-"));
+        }
+
+
+        internal void CreateNewEventLogFile()
+        {
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            System.Xml.XmlElement rootNode;
+
+            rootNode = doc.CreateElement(GlobalData.strEventLogFileName);
+            doc.AppendChild(rootNode);
+
+            doc.Save(GlobalData.strDirectory + GlobalData.strEventLogPath + GlobalData.strEventLogFileName + GlobalData.strEventLogFileType);
+        }
+
+        internal void SaveEventLogFile()
+        {
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            System.Xml.XmlElement rootNode;
+
+            rootNode = doc.CreateElement(GlobalData.strEventLogFileName);
+            doc.AppendChild(rootNode);
+
+            for(int i = 0; i < GlobalData.Events.Count; i++)
+            {
+                System.Xml.XmlElement eventNode = doc.CreateElement("Event");
+                eventNode.SetAttribute("Time", GlobalData.Events[i].Time.ToString());
+                eventNode.SetAttribute("Type", GlobalData.Events[i].eType.ToString());
+                rootNode.AppendChild(eventNode);
+            }
+
+            doc.Save(GlobalData.strDirectory + GlobalData.strEventLogPath + GlobalData.strEventLogFileName + GlobalData.strEventLogFileType);
+        }
+
+        internal void LoadEventLogFile()
+        {
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+
+            doc.Load(GlobalData.strDirectory + GlobalData.strEventLogPath + GlobalData.strEventLogFileName + GlobalData.strEventLogFileType);
+            System.Xml.XmlNodeList nodes = doc.SelectNodes(GlobalData.strEventLogFileName + "/Event");
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                System.Xml.XmlNode eventNode = nodes[i];
+                //TODO: check for nulls, etc.
+                GlobalData.Events.Add(new Event(Convert.ToDateTime(eventNode.Attributes["Time"].Value), 
+                    (Event.EventType)Enum.Parse(typeof(Event.EventType), eventNode.Attributes["Type"].Value)));
+            }
+
+            EventUtility.Sort(GlobalData.Events);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

@@ -7,19 +7,6 @@ namespace TimeTracker
 {
     static class EventLog
     {
-        public enum LogType
-        {
-            NewIssue,
-            RemoveIssue,
-            NewCategory,
-            MergeCategory,
-            ChangedIssueCategory,
-            StartTimer,
-            StopTimer,
-            ResetTime,
-            SwitchedActiveIssue
-        }
-
         #region Issue
         internal static void NewIssueAdded(object sender, EventList<IssueData>.ItemArgs e)
         {
@@ -31,14 +18,14 @@ namespace TimeTracker
             HandleIssueRemoved(e.item);
         }
 
-        private static bool HandleNewIssueAdded(IssueData issue)
+        private static void HandleNewIssueAdded(IssueData issue)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.NewIssue));
         }
 
-        private static bool HandleIssueRemoved(IssueData issue)
+        private static void HandleIssueRemoved(IssueData issue)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.RemoveIssue));
         }
         #endregion
 
@@ -48,9 +35,9 @@ namespace TimeTracker
             HandleNewCategoryAdded(e.item);
         }
 
-        private static bool HandleNewCategoryAdded(Category cat)
+        private static void  HandleNewCategoryAdded(Category cat)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.NewCategory));
         }
 
 
@@ -59,26 +46,25 @@ namespace TimeTracker
             HandleCategoryRemoved(e.item);
         }        
 
-        private static bool HandleCategoryRemoved(Category cat)
+        private static void HandleCategoryRemoved(Category cat)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.RemoveCategory));
         }
-
 
         internal static void CategoryMerged(object sender, CategoryList.MergeItemArgs e)
         {
             HandleCategoryMerged(e.MergeThis, e.IntoThis);
         }
 
-        private static bool HandleCategoryMerged(Category mergeThis, Category intoThis)
+        private static void  HandleCategoryMerged(Category mergeThis, Category intoThis)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.MergeCategory));
         }
         #endregion     
 
-        internal static bool ChangedIssueCategory(IssueData issue, Category oldCat, Category newCat)
+        internal static void ChangedIssueCategory(IssueData issue, Category oldCat, Category newCat)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.ChangedIssueCategory));
         }
 
         #region Timer
@@ -87,9 +73,9 @@ namespace TimeTracker
             HandleTimerStarted(e.time);
         }
 
-        private static bool HandleTimerStarted(DateTime timeStarted)
+        private static void HandleTimerStarted(DateTime timeStarted)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.StartTimer));
         }
 
         internal static void TimerStopped(object sender, EventTimer.TimerArgs e)
@@ -97,19 +83,19 @@ namespace TimeTracker
             HandleTimerStopped(e.time);
         }
 
-        private static bool HandleTimerStopped(DateTime timeStarted)
+        private static void HandleTimerStopped(DateTime timeStarted)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.StopTimer));
         }
         #endregion
 
-        internal static bool TimeReset(IssueData issue)
+        internal static void TimeReset(IssueData issue)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.ResetTime));
         }
-        internal static bool ActiveIssueChanged(IssueData newActive)
+        internal static void ActiveIssueChanged(IssueData newActive)
         {
-            return false;
+            EventUtility.AddEvent(new Event(DateTime.Now, Event.EventType.SwitchedActiveIssue));
         }
     }
 }

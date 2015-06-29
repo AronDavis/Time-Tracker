@@ -23,6 +23,8 @@ namespace TimeTracker
         public static TimeSpan RoundTo = new TimeSpan(0, 15, 0);
         public static GlobalHotkey HotKey;
 
+        internal static List<Event> Events = new List<Event>();
+
         internal static EventList<IssueData> Issues = new EventList<IssueData>();
 
         public static int GetIssueIndexByID(String id)
