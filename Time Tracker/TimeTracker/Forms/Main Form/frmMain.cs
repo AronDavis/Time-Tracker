@@ -786,11 +786,13 @@ namespace TimeTracker
             this.pnlDisplayInfo.Controls.RemoveByKey(labels[index].Name);
             this.pnlDisplayInfo.Controls.RemoveByKey(comboBoxes[index].Name);
             this.pnlDisplayInfo.Controls.RemoveByKey(timeRoundedList[index].Name);
+            this.pnlDisplayInfo.Controls.RemoveByKey(timeEditors[index].Name);
             
             radioButtons.RemoveAt(index);
             labels.RemoveAt(index);
             comboBoxes.RemoveAt(index);
             timeRoundedList.RemoveAt(index);
+            timeEditors.RemoveAt(index);
 
             GlobalData.Issues.RemoveAt(index);
 
